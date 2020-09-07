@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/Swiper/5.4.5/css/swiper.min.css" rel="stylesheet">
+    <style>
+       
+        .assetStatic_select{
+            height: 80px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            padding: 0 15px;
+        }
+        .stnNavTimeSelect {
+        display: flex;
+        align-items: center;
+        padding-right: .2rem;
+        padding-bottom: .1rem;
+    }
+
+    .stnContainer label {
+        margin-bottom: 0;
+    }
+
+    .stnNavTimeSelect>label {
+        font-size: .13rem;
+    }
+
+    .stnNavTime {
+        height: 30px;
+        width: 88px;
+        border-radius: 3px;
+        border-color: #CCD3D1;
+        font-size: .14rem;
+        margin-left: 20px;
+    }
+    .assetsContent{
+        width: 100%;
+        height: calc(100vh - 100px);
+        /* background: #ffffff; */
+        display: flex;
+    }
+    .state{
+        width: 100%;
+        height: 50px;
+    }
+     .swiper-button-next.swiper-button-disabled,
+    .swiper-button-prev.swiper-button-disabled {
+        opacity: 0;
+    }
+    </style>
+</head>
+<body style="background: #f5f5f5;">
+    <!-- 资产统计头部 -->
+    <div class="assetStatic_select">
+        <div class="stnNavTimeSelect">
+            <label for="">选择年份：</label>
+            <select name="" id="" class="stnNavTime">
+                <option value="">全部</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+            </select>
+        </div>
+        <div class="stnNavTimeSelect" style="margin-left: 2rem;">
+            <label for="">选择部门：</label>
+            <select name="" id="" class="stnNavTime">
+                <option value="">全部</option>
+                <option value="研发部">研发部</option>
+                <option value="移动应用组">移动应用组</option>
+            </select>
+        </div>
+    </div>
+    <!-- 资产统计主要内容 -->
+    <div class="assetsContent">
+        <div style="flex: 4;position: relative;margin-right:10px;background: #ffffff;">
+            <div class="stnNavTimeSelect" style="margin: 15px 15px 15px 0;position: absolute;right: 15px;">
+                <label for="">选择部门：</label>
+                <select name="" id="" class="stnNavTime">
+                    <option value="">全部</option>
+                    <option value="研发部">研发部</option>
+                    <option value="移动应用组">移动应用组</option>
+                </select>
+            </div>
+            <div style="margin-top: 50%;transform: translateY(-50%);">
+
+                <table style="margin: 0 auto;width: 90%;border: 1px solid #797979;border-right: 0;"  cellspacing="0">
+                    <tr style="height: 60px;background: #F2F2F2;">
+                        <th style="border-right: 1px solid #797979;width: 15%;">资产类型</th>
+                        <th style="border-right: 1px solid #797979;width: 15%;">金额(元)</th>
+                        <th style="border-right: 1px solid #797979;width: 10%;">占比</th>
+                        <th style="border-right: 1px solid #797979;width: 15%;">资产类别</th>
+                        <th style="border-right: 1px solid #797979;width: 15%;">金额(元)</th>
+                        <th style="width: 15%;border-right: 1px solid #797979;">占比</th>
+                    </tr>
+                    <tr style="height: 60px;background: #ffffff;text-align: center;border-top: 1px  solid #797979;">
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;"  rowspan='3'>办公设备</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;" rowspan='3'>300,000,00</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;" rowspan='3'>88.88%</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;">笔记本</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;">100,000,88</td>
+                        <td style="width: 10%;border-top: 1px  solid #797979;border-right: 1px solid #797979;">100%</td>
+                    </tr>
+                    <tr style="height: 60px;background: #ffffff;text-align: center;border-top: 1px  solid #797979;">
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;">笔记本</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;">100,000,88</td>
+                        <td style="width: 10%;border-top: 1px  solid #797979;border-right: 1px solid #797979;">100%</td>
+                    </tr>
+                    <tr style="height: 60px;background: #ffffff;text-align: center;border-top: 1px  solid #797979;">
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;">笔记本</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;">100,000,88</td>
+                        <td style="width: 10%;border-top: 1px  solid #797979;border-right: 1px solid #797979;">100%</td>
+                    </tr>
+                    <tr style="height: 60px;background: #ffffff;text-align: center;border-top: 1px  solid #797979;">
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;"  rowspan='2'>办公设备</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;" rowspan='2'>300,000,00</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;" rowspan='2'>88.88%</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;">笔记本</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;">100,000,88</td>
+                        <td style="width: 10%;border-top: 1px  solid #797979;border-right: 1px solid #797979;">100%</td>
+                    </tr>
+                    <tr style="height: 60px;background: #ffffff;text-align: center;border-top: 1px  solid #797979;">
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;">笔记本</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;">100,000,88</td>
+                        <td style="width: 10%;border-top: 1px  solid #797979;border-right: 1px solid #797979;">100%</td>
+                    </tr>
+                    <tr style="height: 60px;background: #ffffff;text-align: center;border-top: 1px  solid #797979;">
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;"  rowspan='2'>办公设备</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;" rowspan='2'>300,000,00</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;" rowspan='2'>88.88%</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;">笔记本</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;">100,000,88</td>
+                        <td style="width: 10%;border-top: 1px  solid #797979;border-right: 1px solid #797979;">100%</td>
+                    </tr>
+                    <tr style="height: 60px;background: #ffffff;text-align: center;border-top: 1px  solid #797979;">
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;">笔记本</td>
+                        <td style="border-right: 1px solid #797979;border-top: 1px  solid #797979;width: 15%;">100,000,88</td>
+                        <td style="width: 10%;border-top: 1px  solid #797979;border-right: 1px solid #797979;">100%</td>
+                    </tr>
+                    <tr style="height: 60px;">
+                        <th style="border-right: 1px solid #797979;width: 15%;border-top:1px solid #797979;">资产类型</th>
+                        <th style="border-right: 1px solid #797979;width: 15%;border-top:1px solid #797979;">金额(元)</th>
+                        <th style="border-right: 1px solid #797979;width: 10%;border-top:1px solid #797979;">占比</th>
+                        <th style="border-right: 1px solid #797979;width: 15%;border-top:1px solid #797979;">资产类别</th>
+                        <th style="border-right: 1px solid #797979;width: 15%;border-top:1px solid #797979;">金额(元)</th>
+                        <th style="width: 15%;border-right: 1px solid #797979;border-top:1px solid #797979;">占比</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div style="flex: 6;background: #ffffff;position: relative;">
+            <div class="stnNavTimeSelect" >
+                <label for="">按月份统计</label>
+                <select name="" id="" class="stnNavTime">
+                    <option value="">全部</option>
+                    <option value="1">2月</option>
+                    <option value="2">4月</option>
+                </select>
+            </div>
+            <div style="width: 80%;height: 50%;background: #f6f6f6;position: absolute;top:50%;left:50%;transform: translate(-50%,-50%);" id="container">
+                <!-- <div class="csjsccrtSignChart"> -->
+                    <div class="swiper-container" style="width: 100%;height: 100%;">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">1</div>
+                            <div class="swiper-slide">2</div>
+                        </div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="https://cdn.bootcdn.net/ajax/libs/Swiper/5.4.5/js/swiper.js"></script>
+<script src="./甘特图/highCharts.js"></script>
+<script>
+    var stnNavTime=document.querySelectorAll('.stnNavTime')
+    stnNavTime[0].onchange=function(e){
+        console.log(e.target.value)
+    }
+    stnNavTime[1].onchange=function(e){
+        console.log(e.target.value)
+    }
+    var mySwiper = new Swiper ('.swiper-container', {
+    direction: 'horizontal', // 垂直切换选项
+    // loop: true, // 循环模式选项
+    // 如果需要前进后退按钮
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  })     
+    var chart = Highcharts.chart(document.querySelectorAll(".swiper-slide")[0], {
+	chart: {
+		type: 'line',
+        marginRight:0,
+        marginleft:0,
+        margintop:0
+	},
+	title: {
+		text: ''
+	},
+	subtitle: {
+		text: ''
+	},
+	xAxis: {
+		categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+	},
+	yAxis: {
+		title: {
+			text: '气温 (°C)'
+		}
+	},
+	plotOptions: {
+		line: {
+			dataLabels: {
+				// 开启数据标签
+				enabled: false          
+			},
+			// 关闭鼠标跟踪，对应的提示框、点击事件会失效
+			// enableMouseTracking: false
+		}
+	},
+    legend: {
+       
+		layout: 'vertical',
+		align: 'right',
+		verticalAlign: 'top'
+	},
+	series: [{
+        color:'red',
+		name: '东京',
+		data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
+		marker: {
+			enabled: false,
+			fillColor:'red',
+            symbol:'circle'
+		}
+	}, {
+		name: '伦敦',
+		data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8],
+		marker: {
+			enabled: false,
+			fillColor:'red',
+            symbol:'circle'
+		}
+	},{
+		name: '河南',
+		data: [0, -6.9, -9.5, -14.5, -18.4, -21.5,],
+		marker: {
+			enabled: false,
+			fillColor:'red',
+            symbol:'circle'
+		}
+	}]
+});
+</script>

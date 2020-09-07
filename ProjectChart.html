@@ -1,0 +1,330 @@
+<style>
+    .SJ_content h3 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .SJ_content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: column;
+        padding: 10px;
+        font-family: 思源黑体;
+    }
+
+    .SJ_title {
+        height: 80px;
+        width: 100%;
+        flex: none;
+        background-color: #fff;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+        flex-flow: column;
+        position: relative;
+        padding: 0 15px;
+        background: #fff url(assets/images/oa/集团OA/项目进度.png) 40px center no-repeat;
+        padding-left: 110px;
+    }
+
+    .SJ_title>h3 {
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        color: #666;
+    }
+
+    .SJ_title>h3 .BackToMain {
+        position: absolute;
+        left: 10px;
+        top: 0;
+        height: 100%;
+        width: 40px;
+        display: flex;
+        align-items: center;
+    }
+
+    .SJ_title>ul {
+        display: flex;
+        list-style: none;
+        font-size: 14px;
+        margin: 0;
+        align-items: center;
+    }
+
+    .SJ_title>ul>li {
+        /* min-width: 180px; */
+        margin-right: 20px;
+    }
+
+    .SJ_title>ul>li>span {
+        font-weight: bold;
+        color: #02C8AA;
+    }
+
+    .SJ_title .showHand span {
+        font-size: 16px;
+    }
+
+    .SJ_title .ganttChart {
+        background: #25BC9E;
+        color: #fff;
+        width: 96px;
+        height: 32px;
+        text-align: center;
+        line-height: 32px;
+    }
+
+    .taskProgress {
+        display: flex;
+        height: 50px;
+        background: #FFFFFF;
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .taskProgress .taskBar {
+        width: 2px;
+        height: 15px;
+        background: #25BC9E;
+        position: absolute;
+        top: 50%;
+        left: 1%;
+        transform: translateY(-50%);
+    }
+
+    .taskProgress .taskSchedule {
+        flex: 3;
+        line-height: 50px;
+        margin-left: 30px;
+        font-size: 14px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .taskProgress .taskXRange {
+        flex: 7;
+        line-height: 50px;
+        /* margin-left: 5%; */
+        position: relative;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .taskProgress .taskXRange_img {
+        position: absolute;
+        top: 50%;
+        left: 1%;
+        transform: translateY(-50%);
+    }
+
+    .taskProgress span {
+        margin-left: 3%;
+        font-weight: normal;
+    }
+
+    .taskContent {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        margin-top: 10px;
+        font-size: 14px;
+        color: #333;
+        overflow-y: scroll;
+    }
+
+    .taskContent .task_left {
+        flex: 3;
+        background: #ffffff;
+    }
+
+    .task_left .task_title {
+        display: flex;
+        width: 100%;
+        font-weight: bold;
+        height: 80px;
+        line-height: 80px;
+        border-bottom: 1px solid #ECEFEF;
+        align-items: center;
+        font-size: 20px;
+    }
+
+     .task_first {
+        display: flex;
+        width: 100%;
+        line-height: 48px;
+        height: 48px;
+        border-bottom: 1px solid #ECEFEF
+    }
+    .task_first_task {
+        display: flex;
+        width: 100%;
+        line-height: 48px;
+        height: 48px;
+        border-bottom: 1px solid #ECEFEF
+    }
+     .task_first_name {
+        flex: 3;
+        padding-left: 20px;
+        position: relative;
+    }
+
+    .task_first_name .task_first_name_img {
+        position: absolute;
+        top: 50%;
+        
+        /* transform: translateY(-50%); */
+    }
+.task_first_name_img{
+    position: absolute;
+        top: 50%;
+}
+    .task_left .task_second {
+        display: flex;
+        width: 95%;
+        margin-left: 10%;
+        font-weight: 400;
+        height: 48px;
+        line-height: 48px;
+        border-bottom: 1px solid #ECEFEF
+    }
+
+    .goBack>button[name="reBack"] {
+        background: #25bc9e;
+        border-radius: 3px;
+        color: #FFFFFF;
+        border: none;
+        padding: 5px 20px;
+        margin: 0 10px 0 10px;
+    }
+
+    .stnNavTimeSelect {
+        display: flex;
+        align-items: center;
+        padding-right: 24px;
+        padding-bottom: 15px;
+    }
+
+    .stnNavTime {
+        height: 30px;
+        border-radius: 3px;
+        border-color: #CCD3D1;
+        font-size: 14px;
+        width: 88px;
+    }
+    .highcharts-container {
+        border-bottom: 1px solid #efefef;
+    }
+</style>
+<div class="SJ_content wkt-scroll-light" style="background:#F1F6F6">
+
+
+    <div class="taskProgress">
+        <div class="taskBar"></div>
+        <div class="taskSchedule">项目进度</div>
+        <div class="taskXRange">
+            <img src="assets/images/oa/集团OA/当前时间.png" alt="" class="taskXRange_img">
+            <span class="startTime"></span>
+        </div>
+        <div class="goBack">
+            <button class="btn btn-main-v5 btn-sm" name="reBack">返回</button>
+        </div>
+        <!-- 下拉框的选择
+        <div class="stnNavTimeSelect">
+            <select name="" id="" class="stnNavTime">
+                <option value="天">天</option>
+                <option value="周">周</option>
+                <option value="月">月</option>
+            </select>
+        </div> -->
+    </div>
+    <div class="taskContent">
+        <div class="task_left">
+            <div class="task_title">
+                <div style="flex: 3;padding-left: 5%;">名称</div>
+                <div style="flex: 2;">负责人</div>
+                <div style="flex: 1;">任务进度</div>
+            </div>
+            
+            <% var taskName=data[0].StageName%>
+            <% for(var i=0;i < data.length ;i++){%>
+                <% if (data[i].StageName != taskName || i==0 ) {%>
+                <!-- 1级 -->
+                <div class="task_first_task" >
+                    <div class="task_first_name">
+                        <img src="assets/images/oa/集团OA/箭头.png"  class="task_first_name_img img_top" style="left:1%" index='0' dataName=<%=data[i].StageName %>   >
+                        <span style="font-weight: bold;"><%=data[i].StageName %></span>
+                    </div>
+                </div>
+
+                <% taskName=data[i].StageName%>
+                <%}%>
+                    <div id="bigBox" ETime=<%=data[i].ETime %> STime=<%=data[i].STime %> IsDely=<%=data[i].IsDely %> ProjectProcess=<%=data[i].ProjectProcess %> >
+
+                 
+                        <!-- 2级 -->
+                        <div class="task_first " >
+                            <div class="task_first_name">
+                                <img src="assets/images/oa/集团OA/箭头.png"  class="task_first_name_top img_top" style="left: 6%;" index='1' StageTaskName=<%=data[i].StageTaskName %> >
+                                <span style="font-weight: bold;padding-left: 5%;"><%=data[i].StageTaskName %></span>
+                            </div>
+                            <div style="flex: 2;padding-left: 10px;"><%= data[i].Executor%></div>
+                            <% if( Number(data[i].ProjectProcess) > 0 && Number(data[i].ProjectProcess) < 100) {%>
+
+                                <div style="flex: 1;color:#00A189"><%= data[i].ProjectProcess%>%</div>
+                            <%}%>
+                            <% if(Number(data[i].ProjectProcess) == 0) {%>
+                                <div style="flex: 1;color:#E4E9E8"><%= Number(data[i].ProjectProcess)%>%</div>
+                            <%}%> 
+                            <% if(Number(data[i].IsDely) == 1) {%>
+                                <div style="flex: 1;color:#FF7E00"><%= Number(data[i].ProjectProcess)%>%</div>
+                            <%}%> 
+                            <% if( Number(data[i].ProjectProcess)==100 ) {%>
+
+                                <div style="flex: 1;position: relative;">
+                                    <img src="assets/images/oa/集团OA/进度完成.png" alt="" style="position: absolute;left: 5%;top: 50%;transform: translateY(-50%);">
+                                </div>
+                            <%}%>
+                        </div>
+                        <!-- 3级任务 -->
+                        <% for(var p=0;p < data[i].TaskLevelTwoList.length ;p++){%>
+                    <div id="task3"  ETime=<%=data[i].TaskLevelTwoList[p].ETime %> STime=<%=data[i].TaskLevelTwoList[p].STime %> IsDely=<%=data[i].TaskLevelTwoList[p].IsDely %> ProjectProcess=<%=data[i].TaskLevelTwoList[p].ProjectProcess %>>
+                        <div class="task_second" >
+                                <div style="flex: 3;"><%=data[i].TaskLevelTwoList[p].StageTaskName %></div>
+                                <div style="flex: 2;margin-left: -18%;"><%=data[i].TaskLevelTwoList[p].Executor %></div>
+                                <% if( Number(data[i].TaskLevelTwoList[p].IsDely) == 0 ) {%>
+                                    <% if( Number(data[i].TaskLevelTwoList[p].ProjectProcess) > 0 && Number(data[i].TaskLevelTwoList[p].ProjectProcess) < 100 ) {%>
+                                        <div style="flex: 1;margin-left: -8%;color:#00A189"><%=data[i].TaskLevelTwoList[p].ProjectProcess %>%</div>
+                                    <% }%>
+                                    <% if( Number(data[i].TaskLevelTwoList[p].ProjectProcess) == 0 ) {%>
+                                            <div style="flex: 1;margin-left: -8%;color:#E4E9E8"><%= Number(data[i].TaskLevelTwoList[p].ProjectProcess) %>%</div>
+                                    <% }%>
+                                    <% if( Number(data[i].TaskLevelTwoList[p].ProjectProcess) == 100 ) {%>
+                                        <div style="flex: 1;margin-left: -8%;position: relative;">
+                                            <img src="assets/images/oa/集团OA/进度完成.png" alt="" style="position: absolute;left: 5%;top: 50%;transform: translateY(-50%);">
+                                        </div>
+                                    <% }%>
+                                <% }%>
+                            <% if( Number(data[i].TaskLevelTwoList[p].IsDely) == 1 ) {%>
+                                <div style="flex: 1;margin-left: -8%;color:#FF7E00"><%= Number(data[i].TaskLevelTwoList[p].ProjectProcess) %>%</div>
+                            <% }%>
+                        </div>
+                    </div>
+                        <%}%>
+                    </div>
+
+            <%}%>
+
+           
+        </div>
+        <div style="flex: 7;margin-left: 10px;width:100%;background: #fff;" class="bigRange">
+
+            <div style="width: 100%;" class="container">
+
+            </div>
+        </div>
+</div>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<select name="" id="" style="width: 60%;height: 20px;" >
+    <option value="">请选择</option>
+    <%if(data[1].StageTaskList[p].TaskInfo[i].Manager=='开发代表'){%>
+    
+        <option value="开发代表" selected>开发代表</option>
+        <%} else {%>
+            <option value="开发代表" >开发代表</option>
+            <%}%>
+                <%if(data[1].StageTaskList[p].TaskInfo[i].Manager=='工艺代表'){%>
+    
+        <option value="工艺代表" selected>工艺代表</option>
+        <%} else {%>
+            <option value="工艺代表" >工艺代表</option>
+            <%}%>
+                <%if(data[1].StageTaskList[p].TaskInfo[i].Manager=='采购代表'){%>
+    
+        <option value="采购代表" selected>采购代表</option>
+        <%} else {%>
+            <option value="采购代表" >采购代表</option>
+            <%}%>
+                <%if(data[1].StageTaskList[p].TaskInfo[i].Manager=='质量代表'){%>
+    
+        <option value="质量代表" selected>质量代表</option>
+        <%} else {%>
+            <option value="质量代表" >质量代表</option>
+            <%}%>
+                <%if(data[1].StageTaskList[p].TaskInfo[i].Manager=='市场代表'){%>
+    
+        <option value="市场代表" selected>市场代表</option>
+        <%} else {%>
+            <option value="市场代表" >市场代表</option>
+            <%}%>
+                <%if(data[1].StageTaskList[p].TaskInfo[i].Manager=='生产代表'){%>
+    
+        <option value="生产代表" selected>生产代表</option>
+        <%} else {%>
+            <option value="生产代表" >生产代表</option>
+            <%}%>
+                <%if(data[1].StageTaskList[p].TaskInfo[i].Manager=='测试代表'){%>
+    
+        <option value="测试代表" selected>测试代表</option>
+        <%} else {%>
+            <option value="测试代表" >测试代表</option>
+            <%}%>
+                <%if(data[1].StageTaskList[p].TaskInfo[i].Manager=='POA'){%>
+    
+        <option value="POA" selected>POA</option>
+        <%} else {%>
+            <option value="POA" >POA</option>
+            <%}%>
+</select>
+<body>
+    <script>
+   
+    </script>
+</body>
+
+</html>
+ <!-- 研究院开始 -->
+ <table class="content_table" cellspacing="0">
+
+    <% for(var i=0;i < data[1].Rowspan ;i++){%>
+     <tr class="table_title_tr">
+         <%if(i==0){%>
+             <td class="content_depart" rowspan=<%=data[1].Rowspan%>><%=data[1].DepName%></td>
+             <%}%>
+         <% for(var p=0;p< data[1].StageTaskList.length;p++) {%>
+             <%if(data[1].StageTaskList[p].StageName=="项目立项"){%>
+                 <% if(data[1].StageTaskList[p].TaskInfo.length>=i+1&&data[1].StageTaskList[p].TaskInfo.length>0) {%>
+         <td style="width:7%; " class="task_first"><%= data[1].StageTaskList[p].TaskInfo[i].TaskName %></td>
+         <td style="width:6%; " class="task_first">
+             <select name="" id="" style="width: 60%;height: 20px;">
+                 <option value="">请选择</option>
+                 <option value="开发代表">开发代表</option>
+                 <option value="工艺代表" >工艺代表</option>
+                 <option value="采购代表">采购代表</option>
+                 <option value="质量代表">质量代表</option>
+                 <option value="市场代表">市场代表</option>
+                 <option value="生产代表">生产代表</option>
+                 <option value="测试代表">测试代表</option>
+                 <option value="POA">POA</option>
+             </select>
+         </td>
+         <%} else {%>
+             <td style="width:7%; " class="task_first"></td>
+             <td style="width:6%; " class="task_first"></td>
+             <%}%>
+         <%}%>
+           <%if(data[1].StageTaskList[p].StageName=="产品开发"){%>
+             
+             <% if(data[1].StageTaskList[p].TaskInfo.length>=i+1&&data[1].StageTaskList[p].TaskInfo.length>0) {%>
+     <td style="width:7%; " class="task_first"><%=data[1].StageTaskList[p].TaskInfo[i].TaskName%></td>
+     <td style="width:6%; " class="task_first">
+         <select name="" id="" style="width: 60%;height: 20px;">
+             <option value="">请选择</option>
+             <option value="开发代表">开发代表</option>
+             <option value="工艺代表" >工艺代表</option>
+             <option value="采购代表">采购代表</option>
+             <option value="质量代表">质量代表</option>
+             <option value="市场代表">市场代表</option>
+             <option value="生产代表">生产代表</option>
+             <option value="测试代表">测试代表</option>
+             <option value="POA">POA</option>
+         </select>
+     </td>
+     <%} else{%>
+         <td style="width:7%; " class="task_first"></td>
+         <td style="width:6%; " class="task_first"></td>
+         <%}%>
+     <%}%>
+         <%if(data[1].StageTaskList[p].StageName=="项目验证"){%>
+             
+             <% if(data[1].StageTaskList[p].TaskInfo.length>=i+1&&data[1].StageTaskList[p].TaskInfo.length>0) {%>
+     <td style="width:7%; " class="task_first"><%=data[1].StageTaskList[p].TaskInfo[i].TaskName%></td>
+     <td style="width:6%; " class="task_first">
+         <select name="" id="" style="width: 60%;height: 20px;">
+             <option value="">请选择</option>
+             <option value="开发代表">开发代表</option>
+             <option value="工艺代表" >工艺代表</option>
+             <option value="采购代表">采购代表</option>
+             <option value="质量代表">质量代表</option>
+             <option value="市场代表">市场代表</option>
+             <option value="生产代表">生产代表</option>
+             <option value="测试代表">测试代表</option>
+             <option value="POA">POA</option>
+         </select>
+     </td>
+     <%} else{%>
+         <td style="width:7%; " class="task_first"></td>
+         <td style="width:6%; " class="task_first"></td>
+         <%}%>
+     <%}%>
+         <%if(data[1].StageTaskList[p].StageName=="项目验收"){%>
+             <% if(data[1].StageTaskList[p].TaskInfo.length>=Number(i+1)&&data[1].StageTaskList[p].TaskInfo.length>0) {%>
+     <td style="width:7%; " class="task_first"><%=data[1].StageTaskList[p].TaskInfo[i].TaskName%></td>
+     <td style="width:6%; " class="task_first">
+         <select name="" id="" style="width: 60%;height: 20px;">
+             <option value="">请选择</option>
+             <option value="开发代表">开发代表</option>
+             <option value="工艺代表" >工艺代表</option>
+             <option value="采购代表">采购代表</option>
+             <option value="质量代表">质量代表</option>
+             <option value="市场代表">市场代表</option>
+             <option value="生产代表">生产代表</option>
+             <option value="测试代表">测试代表</option>
+             <option value="POA">POA</option>
+         </select>
+     </td>
+     <%} else{%>
+         <td style="width:7%; " class="task_first"></td>
+         <td style="width:6%; " class="task_first"></td>
+         <%}%>
+     <%}%>
+         <%}%>
+     </tr>
+     <%}%>
+ </table>
+ <!-- 研究院结束 -->
+ <!-- 质管中心开始 -->
+ <table class="content_table" cellspacing="0">
+
+     <% for(var i=0;i < data[2].Rowspan ;i++){%>
+     <tr class="table_title_tr">
+         <%if(i==0){%>
+             <td class="content_depart" rowspan=<%=data[2].Rowspan%>><%=data[2].DepName%></td>
+             <%}%>
+         <% for(var p=0;p< data[2].StageTaskList.length;p++) {%>
+             <%if(data[2].StageTaskList[p].StageName=="项目立项"){%>
+                 <% if(data[2].StageTaskList[p].TaskInfo.length>=i+1&&data[2].StageTaskList[p].TaskInfo.length>0) {%>
+         <td style="width:7%; " class="task_first"><%= data[2].StageTaskList[p].TaskInfo[i].TaskName %></td>
+         <td style="width:6%; " class="task_first">
+             <select name="" id="" style="width: 60%;height: 20px;">
+                 <option value="">请选择</option>
+                 <option value="开发代表">开发代表</option>
+                 <option value="工艺代表" >工艺代表</option>
+                 <option value="采购代表">采购代表</option>
+                 <option value="质量代表">质量代表</option>
+                 <option value="市场代表">市场代表</option>
+                 <option value="生产代表">生产代表</option>
+                 <option value="测试代表">测试代表</option>
+                 <option value="POA">POA</option>
+             </select>
+         </td>
+         <%} else {%>
+             <td style="width:7%; " class="task_first"></td>
+             <td style="width:6%; " class="task_first"></td>
+             <%}%>
+         <%}%>
+           <%if(data[2].StageTaskList[p].StageName=="产品开发"){%>
+             
+             <% if(data[2].StageTaskList[p].TaskInfo.length>=i+1&&data[2].StageTaskList[p].TaskInfo.length>0) {%>
+     <td style="width:7%; " class="task_first"><%=data[2].StageTaskList[p].TaskInfo[i].TaskName%></td>
+     <td style="width:6%; " class="task_first">
+         <select name="" id="" style="width: 60%;height: 20px;">
+             <option value="">请选择</option>
+             <option value="开发代表">开发代表</option>
+             <option value="工艺代表" >工艺代表</option>
+             <option value="采购代表">采购代表</option>
+             <option value="质量代表">质量代表</option>
+             <option value="市场代表">市场代表</option>
+             <option value="生产代表">生产代表</option>
+             <option value="测试代表">测试代表</option>
+             <option value="POA">POA</option>
+         </select>
+     </td>
+     <%} else{%>
+         <td style="width:7%; " class="task_first"></td>
+         <td style="width:6%; " class="task_first"></td>
+         <%}%>
+     <%}%>
+         <%if(data[2].StageTaskList[p].StageName=="项目验证"){%>
+             
+             <% if(data[2].StageTaskList[p].TaskInfo.length>=i+1&&data[2].StageTaskList[p].TaskInfo.length>0) {%>
+     <td style="width:7%; " class="task_first"><%=data[2].StageTaskList[p].TaskInfo[i].TaskName%></td>
+     <td style="width:6%; " class="task_first">
+         <select name="" id="" style="width: 60%;height: 20px;">
+             <option value="">请选择</option>
+             <option value="开发代表">开发代表</option>
+             <option value="工艺代表" >工艺代表</option>
+             <option value="采购代表">采购代表</option>
+             <option value="质量代表">质量代表</option>
+             <option value="市场代表">市场代表</option>
+             <option value="生产代表">生产代表</option>
+             <option value="测试代表">测试代表</option>
+             <option value="POA">POA</option>
+         </select>
+     </td>
+     <%} else{%>
+         <td style="width:7%; " class="task_first"></td>
+         <td style="width:6%; " class="task_first"></td>
+         <%}%>
+     <%}%>
+         <%if(data[2].StageTaskList[p].StageName=="项目验收"){%>
+             <% if(data[2].StageTaskList[p].TaskInfo.length>=Number(i+1)&&data[2].StageTaskList[p].TaskInfo.length>0) {%>
+     <td style="width:7%; " class="task_first"><%=data[2].StageTaskList[p].TaskInfo[i].TaskName%></td>
+     <td style="width:6%; " class="task_first">
+         <select name="" id="" style="width: 60%;height: 20px;">
+             <option value="">请选择</option>
+             <option value="开发代表">开发代表</option>
+             <option value="工艺代表" >工艺代表</option>
+             <option value="采购代表">采购代表</option>
+             <option value="质量代表">质量代表</option>
+             <option value="市场代表">市场代表</option>
+             <option value="生产代表">生产代表</option>
+             <option value="测试代表">测试代表</option>
+             <option value="POA">POA</option>
+         </select>
+     </td>
+     <%} else{%>
+         <td style="width:7%; " class="task_first"></td>
+         <td style="width:6%; " class="task_first"></td>
+         <%}%>
+     <%}%>
+         <%}%>
+     </tr>
+     <%}%>
+ </table>
+ <!-- 质管中心结束 -->
+ <!-- 生产中心开始 -->
+ <table class="content_table" cellspacing="0">
+    <% for(var i=0;i < data[3].Rowspan ;i++){%>
+     <tr class="table_title_tr">
+         <%if(i==0){%>
+             <td class="content_depart" rowspan=<%=data[3].Rowspan%>><%=data[3].DepName%></td>
+             <%}%>
+         <% for(var p=0;p< data[3].StageTaskList.length;p++) {%>
+             <%if(data[3].StageTaskList[p].StageName=="项目立项"){%>
+                 <% if(data[3].StageTaskList[p].TaskInfo.length>=i+1&&data[3].StageTaskList[p].TaskInfo.length>0) {%>
+         <td style="width:7%; " class="task_first"><%= data[3].StageTaskList[p].TaskInfo[i].TaskName %></td>
+         <td style="width:6%; " class="task_first">
+             <select name="" id="" style="width: 60%;height: 20px;">
+                 <option value="">请选择</option>
+                 <option value="开发代表">开发代表</option>
+                 <option value="工艺代表" >工艺代表</option>
+                 <option value="采购代表">采购代表</option>
+                 <option value="质量代表">质量代表</option>
+                 <option value="市场代表">市场代表</option>
+                 <option value="生产代表">生产代表</option>
+                 <option value="测试代表">测试代表</option>
+                 <option value="POA">POA</option>
+             </select>
+         </td>
+         <%} else {%>
+             <td style="width:7%; " class="task_first"></td>
+             <td style="width:6%; " class="task_first"></td>
+             <%}%>
+         <%}%>
+           <%if(data[3].StageTaskList[p].StageName=="产品开发"){%>
+             
+             <% if(data[3].StageTaskList[p].TaskInfo.length>=i+1&&data[3].StageTaskList[p].TaskInfo.length>0) {%>
+     <td style="width:7%; " class="task_first"><%=data[3].StageTaskList[p].TaskInfo[i].TaskName%></td>
+     <td style="width:6%; " class="task_first">
+         <select name="" id="" style="width: 60%;height: 20px;">
+             <option value="">请选择</option>
+             <option value="开发代表">开发代表</option>
+             <option value="工艺代表" >工艺代表</option>
+             <option value="采购代表">采购代表</option>
+             <option value="质量代表">质量代表</option>
+             <option value="市场代表">市场代表</option>
+             <option value="生产代表">生产代表</option>
+             <option value="测试代表">测试代表</option>
+             <option value="POA">POA</option>
+         </select>
+     </td>
+     <%} else{%>
+         <td style="width:7%; " class="task_first"></td>
+         <td style="width:6%; " class="task_first"></td>
+         <%}%>
+     <%}%>
+         <%if(data[3].StageTaskList[p].StageName=="项目验证"){%>
+             
+             <% if(data[3].StageTaskList[p].TaskInfo.length>=i+1&&data[3].StageTaskList[p].TaskInfo.length>0) {%>
+     <td style="width:7%; " class="task_first"><%=data[3].StageTaskList[p].TaskInfo[i].TaskName%></td>
+     <td style="width:6%; " class="task_first">
+         <select name="" id="" style="width: 60%;height: 20px;">
+             <option value="">请选择</option>
+             <option value="开发代表">开发代表</option>
+             <option value="工艺代表" >工艺代表</option>
+             <option value="采购代表">采购代表</option>
+             <option value="质量代表">质量代表</option>
+             <option value="市场代表">市场代表</option>
+             <option value="生产代表">生产代表</option>
+             <option value="测试代表">测试代表</option>
+             <option value="POA">POA</option>
+         </select>
+     </td>
+     <%} else{%>
+         <td style="width:7%; " class="task_first"></td>
+         <td style="width:6%; " class="task_first"></td>
+         <%}%>
+     <%}%>
+         <%if(data[3].StageTaskList[p].StageName=="项目验收"){%>
+             <% if(data[3].StageTaskList[p].TaskInfo.length>=Number(i+1)&&data[3].StageTaskList[p].TaskInfo.length>0) {%>
+     <td style="width:7%; " class="task_first"><%=data[3].StageTaskList[p].TaskInfo[i].TaskName%></td>
+     <td style="width:6%; " class="task_first">
+         <select name="" id="" style="width: 60%;height: 20px;">
+             <option value="">请选择</option>
+             <option value="开发代表">开发代表</option>
+             <option value="工艺代表" >工艺代表</option>
+             <option value="采购代表">采购代表</option>
+             <option value="质量代表">质量代表</option>
+             <option value="市场代表">市场代表</option>
+             <option value="生产代表">生产代表</option>
+             <option value="测试代表">测试代表</option>
+             <option value="POA">POA</option>
+         </select>
+     </td>
+     <%} else{%>
+         <td style="width:7%; " class="task_first"></td>
+         <td style="width:6%; " class="task_first"></td>
+         <%}%>
+     <%}%>
+         <%}%>
+     </tr>
+     <%}%>
+ </table>
+ <!-- 生产中心结束 -->
+ <img src="assets/images/oa/项目进度管理新/文件夹亮.png" alt="">
+ <div class="second-num"><span style="position: absolute;top: -50%;left: 35%;">1</span></div>

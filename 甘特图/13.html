@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<!-- 1.鼠标放上去颜色背景变化
+	2.在series中添加color属性，颜色会自动变化 -->
+<body>
+	<div id="container"></div>
+	<script src="./highcharts-gantt.js"></script>
+	<!-- <script src="./exporting.js"></script> -->
+	<script src="./xrange.js"></script>
+	<!-- <script src="./oldie.js"></script> -->
+	<script>
+		var options={
+	chart: {
+		type: 'xrange'
+	},
+	title: {
+		text: '简易甘特图'
+	},
+	xAxis: {
+		type: 'datetime',
+		dateTimeLabelFormats: {
+			day: '%e', //按天
+			week:'%d' //按周
+        },
+		
+		labels:{
+			// 定义x轴样式
+			style:{
+				color:"red",
+				fontSize:'20px',
+			},
+		},
+		
+        opposite:true,
+	},
+	
+	tooltip: {
+		
+			shared: true,
+			useHTML: true,
+			headerFormat: '<small>产品性能目标</small><table>',
+			pointFormat: '<tr><td style="color:#333">持续时间: <span>{point.y1}</span></td></tr>' +
+			'<tr><td>当前进度:<span style="color:#6BBDAD">{point.progress}%</span></td></tr><tr><td>计划开始日期:<span style="color:#5D5D5D">{point.start}</span></td></tr><tr><td>计划结束日期:<span style="color:#5D5D5D">{point.end}</span></td></tr>',
+			footerFormat: '</table>',
+			valueDecimals: 2,
+		style: {
+				padding: 10,
+				fontWeight: 'bold',
+				color:'#333',
+			}
+	},
+	// yAxis: {
+	// 	type: 'category',
+	// 	grid: {
+	// 		enabled: true,
+	// 		borderColor: 'rgba(0,0,0,0.3)',
+	// 		borderWidth: 1,
+	// 		columns: [{
+	// 			title: {
+	// 				text: 'Project'
+	// 			},
+	// 			labels: {
+	// 				format: '{point.name}'
+	// 			}
+	// 		}],
+	// 	},
+	// },
+	series: [{
+		name: '项目1',
+		// pointPadding: 0,
+		// groupPadding: 0,
+		borderColor: '#E4E9E8',//进度条颜色
+		// borderWidth:3, //进度条宽度
+		pointWidth: 20, //进度条宽度
+		borderRadius:10,  //进度条边框
+		data: [{
+			x: Date.UTC(2014, 10, 21),
+			x2: Date.UTC(2014, 11, 2),
+			start:'2020-06-06', //开始时间
+			end:'2020-06-66',//结束时间
+			// color:'#E4E9E8',
+			borderWidth:3,
+			y: 0,
+			y1:'2天',//设置持续时间
+			progress:20,
+			partialFill: 0.25,
+			name:'fill',
+			id:'fill'
+		},
+		 {
+			x: Date.UTC(2014, 11, 2),
+			x2: Date.UTC(2014, 11, 5),
+			color:'#ff0000',//设置当前时间轴的颜色
+			y: 1,
+			name:'prototype',
+			parent:'fill',
+			id:"prototype",
+			parent:"fill"
+		}, {
+			x: Date.UTC(2014, 11, 8),
+			x2: Date.UTC(2014, 11, 9),
+			y: 2,
+			name:'develop',
+			id:"develop"
+		}, {
+			x: Date.UTC(2014, 11, 9),
+			x2: Date.UTC(2014, 11, 19),
+			color:'blue',
+			y: 1,
+			name:'lowDevelop',
+			id:"lowDevelop",
+			parent:"develop"
+		}, {
+			x: Date.UTC(2014, 11, 10),
+			x2: Date.UTC(2014, 11, 23),
+			y: 2,
+			name:'test',
+			id:"测试"
+		},{
+			x: Date.UTC(2014, 12, 1),
+			x2: Date.UTC(2014, 12, 10),
+			y: 2,
+			name:'testSuccess',
+			id:"testSuccess",
+			parent:"测试"
+		},{
+			x: Date.UTC(2014, 12, 10),
+			x2: Date.UTC(2014, 12, 25),
+			partialFill: 0.55,
+			start:'2020-06-06', //开始时间
+			end:'2020-06-66',//结束时间
+			y: 3,
+			y1:'2天',//设置持续时间
+			progress:20,
+			name:'testVactory',
+			id:"testVactory",
+			parent:"测试"
+		}],
+		dataLabels: {
+			enabled: true
+		}
+	}]
+}
+console.log(options)
+        Highcharts.ganttChart('container',options );
+		// 复制代码
+		var time='2020-02-14'
+		console.log(time.split('-')[0],time.split('-')[1],time.split('-')[2])
+		console.log(Date.UTC(time.split('-')[0],time.split('-')[1],time.split('-')[2]))
+	</script>
+	
+</body>
+
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .project_modal {
+            width: 500px;
+            background: #fff;
+            position: absolute;
+            right: 5%;
+        }
+    
+        .project_modal_close {
+            height: 50px;
+            width: 100%;
+            border-bottom: 1px solid rgba(237, 237, 237, 1);
+            position: relative;
+        }
+    
+        .project_modal_img {
+            width: 12px;
+            height: 12px;
+            position: absolute;
+            top: 40%;
+            right: 5%;
+        }
+    
+        .progress_bar {
+            position: absolute;
+            right: 15%;
+            top: 30%;
+        }
+    
+        .progress_num {
+            position: absolute;
+            right: 8%;
+            top: 32%;
+            color: #333;
+            font-weight: 400;
+            font-size: 14px;
+        }
+    
+        .project_modal_name {
+            font-family: Microsoft YaHei;
+            color: #333;
+            line-height: 40px;
+            height: 40px;
+            padding-left: 60px;
+    
+        }
+    
+        .project_modal_task {
+            position: absolute;
+            left: 30px;
+            top: 11px;
+        }
+    
+        .task_title {
+            margin-top: 10px;
+            position: relative;
+        }
+    
+        .task_description_value {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 6%;
+            transform: translateY(-50%);
+            color: #333;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    
+        .task_content {
+            width: 480px;
+            height: 100px;
+            margin: 20px auto;
+    
+        }
+    
+        .text_content_value {
+            width: 100%;
+            height: 100%;
+            color: #333;
+            font-size: 14px;
+            resize: none;
+            border: 1px solid #DAE0E9;
+            border-radius: 3px;
+        }
+    
+        .propject_docu {
+            width: 90px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 15px;
+            position: relative;
+        }
+    
+        .propject_docu_img {
+            width: 28px;
+            height: 32px;
+        }
+        .propject_docu:hover .deleteDocu{
+            display: flex;
+        }
+        .deleteDocu {
+            position: absolute;
+            top: 0%;
+            right: 15%;
+            display: none;
+        }
+    
+        .uploadFile {
+            width: 80px;
+            height: 70px;
+            border: 1px solid #DAE0E9;
+            position: relative;
+            margin: 15px 0 0 24px;
+        }
+    
+        .uploadFile_text {
+            position: absolute;
+            bottom: 14%;
+            left: 50%;
+            transform: translateX(-50%);
+            color:#999999 ;
+        }
+    
+        .uploadFile_input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #333333;
+            z-index: 1001;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+    
+        .funcBtn {
+            width: 88px;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            font-weight: 400;
+            font-size: 14px;
+        }
+    
+        .cancelBtn {
+            background: #fff;
+            color: #333;
+            border: 1px solid #DBDBDB;
+        }
+    
+        .determineBtn {
+            background: #25BC9E;
+            color: #fff;
+            border: 0;
+            margin: 0 20px;
+        }
+    
+        input[type=range] {
+            margin-top: 8px;
+            outline: none;
+            -webkit-appearance: none;
+            /*清除系统默认样式*/
+            width: 30%;
+            background: -webkit-linear-gradient(#25BC9E, #25BC9E) no-repeat, #E5EBEB;
+            height: 6px;
+            /*横条的高度*/
+        }
+    
+        /*拖动块的样式*/
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            /*清除系统默认样式*/
+            height: 16px;
+            /*拖动块高度*/
+            width: 16px;
+            /*拖动块宽度*/
+            background: #fff;
+            /*拖动块背景*/
+            border-radius: 50%;
+            /*外观设置为圆形*/
+            border: solid 1px #ddd;
+            /*设置边框*/
+        }
+    
+        /* 去除谷歌浏览器所有获取焦点边框问题 */
+        *:focus {
+            outline: none;
+        }
+    
+        .ReportModalClose
+        {
+            cursor: pointer;
+        }
+    
+        .uploadFile
+        {
+            cursor: pointer;
+        }
+    
+    
+        /* 去除你想要去掉的边框 */
+        /* .类名:focus { outline:none; }  */
+        /* 给你希望自定义边框 */
+        .textFocue:focus { outline:#25BC9E Solid 1px; } 
+    </style>
+</head>
+<body>
+    <div class="project_modal">
+        <div class="project_modal_close">
+            <img src="assets/images/oa/集团OA/研究院关闭.png" alt="" class="project_modal_img ReportModalClose">
+        </div>
+        <div>
+            <p style="margin: 0; position: relative;">
+                <img src="assets/images/oa/集团OA/任务名称.png" alt="" class="project_modal_task">
+                <span class="project_modal_name" style="font-weight:bold;font-size: 16px;">任务名称：123</span>
+            </p>
+            <p style="margin: 0; position: relative;">
+                <img src="assets/images/oa/集团OA/项目负责人.png" alt="" class="project_modal_task">
+                <span class="project_modal_name" style="font-size: 14px;">788</span>
+            </p>
+            <div style=" position: relative;">
+                <img src="assets/images/oa/集团OA/项目周期.png" alt="" class="project_modal_task">
+                <span class="project_modal_name" style="font-size: 14px;">2020-01 至 2020-08</span>
+                <input type="range" class="progress_bar" name="range_speed" min="0" max="100" value="85" step='20'>
+                <span class="progress_num">85%</span>
+            </div>
+        </div>
+        <div class="task_title">
+            <img src="assets/images/oa/集团OA/任务描述.png" alt="" style="height: 35px;">
+            <span class="task_description_value">任务描述</span>
+    
+        </div>
+        <div class="task_content" style="margin-left: 24px;margin-right: 24px;">
+            <textarea readonly name="text"
+                class="text_content_value" style="border: 0;padding: 10px;background: #f6f6f6;color: #333333;font-weight: 500;font-size: 14px;">788252</textarea>
+        </div>
+        <div class="task_title">
+            <img src="assets/images/oa/集团OA/任务描述.png" alt="" style="height: 35px;">
+            <span class="task_description_value">反馈内容</span>
+    
+        </div>
+        <div class="task_content" style="margin-left: 24px;margin-right: 24px;">
+            <textarea
+                class="text_content_value textFocue"></textarea>
+        </div>
+        <div class="task_title">
+            <img src="assets/images/oa/集团OA/任务描述.png" alt="" style="height: 35px;">
+            <span class="task_description_value">项目过程文档</span>
+        </div>
+        <div class="fileListDiv" style="display: flex;flex-wrap: wrap;">
+            
+                <div class="propject_docu"  >
+                    <img src="assets/images/oa/集团OA/弹框关闭.png" alt="" class="deleteDocu" >
+                    <img src="assets/images/oa/集团OA/文档.png" alt="" class="propject_docu_img" >
+                    <span>12</span>
+                </div>
+                <div class="propject_docu"  >
+                    <img src="assets/images/oa/集团OA/弹框关闭.png" alt="" class="deleteDocu" >
+                    <img src="assets/images/oa/集团OA/文档.png" alt="" class="propject_docu_img" >
+                    <span>12</span>
+                </div>
+                <div class="propject_docu"  >
+                    <img src="assets/images/oa/集团OA/弹框关闭.png" alt="" class="deleteDocu" >
+                    <img src="assets/images/oa/集团OA/文档.png" alt="" class="propject_docu_img" >
+                    <span>12</span>
+                </div>
+    
+                <div class="uploadFile">
+                    <img src="assets/images/oa/集团OA/上传文件.png" alt="" style="width: 100%;height: 100%;">
+                    <span class="uploadFile_text" >上传</span>
+                </div>
+        </div>
+            
+         
+        <hr style="width: 100%;height: 1px; background: #EEEEEE;">
+        <div style="margin-bottom: 20px;float: right;">
+            <button class="funcBtn cancelBtn ReportModalClose">取消</button>
+            <button class="funcBtn determineBtn">确定</button>
+        </div>
+    </div>
+</body>
+</html>

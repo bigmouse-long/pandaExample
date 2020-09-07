@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .highcharts-range-label {
+            margin-right: 20px!important;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script src="http://cdn.highcharts.com.cn/gantt/8.1.2/highcharts-gantt.js"></script>
+    <script src="http://cdn.highcharts.com.cn/highstock/8.1.2/highstock.js"></script>
+</body>
+</html>
+<script>
+//    Highcharts.setOptions({
+//                 global: {
+//                     useUTC: false //中文区时间格式
+//                 },
+//                 // 所有语言文字相关配置都设置在 lang 里
+//                 lang: {
+//                     resetZoom: '重置',
+//                     resetZoomTitle: '重置缩放比例',
+//                     rangeSelectorZoom: '', // 不显示 'zoom' 文字
+//                     noData: '暂无数据',
+//                     months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+//                     shortMonths: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+//                     weekdays: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+//                     rangeSelectorFrom: "开始时间",
+//                     rangeSelectorTo: "结束时间",
+//                 }
+//             }); 
+    Highcharts.ganttChart('container', {
+	title: {
+		text: 'Gantt Chart with Highstock Navigation'
+    },
+	yAxis: {
+        uniqueNames: true,
+        visible:false //去除侧边
+	},
+	navigator: {
+		enabled: true,
+		series: {
+			type: 'gantt',
+			pointPlacement: 0.5,
+			pointPadding: 0.25
+		},
+		yAxis: {
+			min: 0,
+			max: 3,
+			reversed: true,
+            categories: [],
+		}
+	},
+	scrollbar: {
+		enabled: true
+    },
+   
+	rangeSelector: {
+        enabled: true,
+                    selected: 0, //默认选中值
+                    buttons: [{
+                        type: 'month',
+                        count: 1,
+                        text: '月',
+                    }, {
+                        type: 'week',
+                        count: 1,
+                        text: '周'
+                    }, {
+                        type: 'year',
+                        count: 1,
+                        text: '年'
+                    }, {
+                        type: 'all',
+                        text: '所有'
+                    }],
+                    buttonSpacing:10,
+                    // inputStyle:{
+                    //     color:'red', ///输入框中日期颜色
+                        
+                    // },
+                    labelStyle:{
+                        color:'#33333', //范围开始时间和和结束时间文字颜色
+                        fontSize:'14px',
+                    },
+                    inputBoxBorderColor: '#25BC9E',
+	},
+	series: [{
+		name: 'Project 1',
+		data: [{
+			start: Date.UTC(2017, 11, 1),
+			end: Date.UTC(2018, 1, 2),
+            completed: 0.95,
+            y:0,
+			name: ''
+		}, {
+			start: Date.UTC(2018, 1, 2),
+			end: Date.UTC(2018, 11, 5),
+			completed: 0.5,
+			name: ''
+		}, {
+			start: Date.UTC(2018, 11, 8),
+			end: Date.UTC(2018, 11, 9),
+			completed: 0.15,
+			name: 'Testing'
+		}, {
+			start: Date.UTC(2018, 11, 9),
+			end: Date.UTC(2018, 11, 19),
+			completed: {
+				amount: 0.3,
+				fill: '#fa0'
+			},
+			name: 'Development'
+		}, {
+			start: Date.UTC(2018, 11, 10),
+			end: Date.UTC(2018, 11, 23),
+			name: 'Testing'
+		}, {
+			start: Date.UTC(2018, 11, 25, 8),
+			end: Date.UTC(2018, 11, 25, 16),
+			name: 'Release'
+		}]
+	}]
+});
+
+</script>

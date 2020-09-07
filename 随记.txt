@@ -1,0 +1,93 @@
+tap和click区别：
+两者都会再点击时触发，但是在web手机端，click在点击时会有200-300ms的延时，所以要使用tap进行代替，singleTap和doubleTap表示单次点击和双次点击，但是使用tap会带来点透事件（事件穿透）
+解决事件穿透：1.：用touchend代替tap事件并阻止掉touchend的默认行为preventDefault()
+	2.延迟一定时间来处理事件
+<img src=""  />
+$("img")[0].setAttribute("src", "data:image/jpeg;base64," + url);
+//就是将img的src属性的值改变为也就是图片的路径，图片时base64编码，格式jpeg
+data表示取得数据的协定名称，image/jpeg 是数据类型名称，base64 是数据的编码方法，逗号后面就是这个image/jpeg文件base64编码后的数据。
+data:,文本数据
+data:text/plain,文本数据
+data:text/html,HTML代码
+data:text/html;base64,base64编码的HTML代码
+data:text/css,CSS代码
+data:text/css;base64,base64编码的CSS代码
+data:text/javascript,Javascript代码
+data:text/javascript;base64,base64编码的Javascript代码
+data:image/gif;base64,base64编码的gif图片数据
+data:image/png;base64,base64编码的png图片数据
+data:image/jpeg;base64,base64编码的jpeg图片数据
+data:image/x-icon;base64,base64编码的icon图片数据
+在小程序的点击事件当中，使用bindtap点击事件会有冒泡事件，为了解决事件的冒泡
+阻止事件冒泡行为：将bindtap改为catchtap就行了，只会触发自身的点击事件。
+理解为：catchtap阻断自身的冒泡行为。
+<meta http-equiv="refresh" content="5"> 表示每隔5秒自动刷新页面
+mui的js文件夹初始化
+$表示mui的js文件 
+tpl 表示template.js文件
+pl 表示publicJs文件
+//页面初始
+mui.ready(function() {
+
+	page.init();
+});
+//页面对象
+var page = new(function($, tpl, pl) {
+this.init = function() {
+逻辑部分
+}
+}）(mui, template, PublicJs);
+强制刷新 ctrl+F5
+css新属性：
+text-overflow 规定当文本溢出包含元素发生的事情  默认值为clip
+可选值：clip 修剪文本  elipsis  显示省略符号来代表被修剪的文本  string 使用给定的字符串来代表被修剪的文本 
+SVN 三大指令：提交指令 commit 更新指令 update  检索指令 checkout 注：只有在第一次下载一个项目的时候，才会使用checkout指令
+开启服务器端的svn：svnserver -d（在后台运行）-r 运行的服务器存在的路径  path
+在小程序中，使用wx.showToast()，进行弹框提示
+小程序中实现条件的判断，使用wx:if wx:else 进行判断
+去除导航组件navigator 的点击高亮，只需要添加类名hover-class值为none即可。
+面试必用。
+
+https://avue.2bugs.cn/#/login
+
+https://www.bookstack.cn/read/avue-2.x/391487d752fdf241.md#Events
+
+http://www.alltoall.net/
+
+https://docs.open.alipay.com/203/107090/
+
+https://docs.open.alipay.com/203
+
+http://www.luoxiao123.cn/1196.html
+
+https://www.php.cn/js-tutorial-385356.html
+
+在小程序当中可以是使用wxparse插件将html的页面渲染成小程序的页面
+在小程序中的app.js中全局的数据globalData,可以使用getApp()进行获取
+绝对定位的盒子，默认宽度只有自己本身的大小，如果需要改动，请手动配置宽度大小。
+设置网站换肤：首先需要先抽离出一个公共的颜色样式的代码文件，其次设置样式文件切换的逻辑，将数据存储在localStorage中保存
+在进行换肤操作时进行获取，并将值获取，使用字符串拼接改变样式文件路径
+在使用vant进行省市区的选择时，只需要把vant提供的地址信息下载过来，放到文件夹中，在用使用的.vue文件中进行引入，暴露出来的值就代表地址的详细数据
+在取得用填写的详细地址信息时，要在保存按钮的事件函数中的事件e就是用户在表单所填写的内容。
+ 'b' + 'a' + （+ 'a'） + 'a' 的输出结果banana
+解：因为优先级的问题，运算会先算小括号里面的，一元正号运算符位于其操作数前面，计算其操作数的数值，如果操作数不是一个数值，会尝试将其转换成一个数值，尽管一元负号也能转换非数值类型
+但是一元正号是转换其他对象到数值的最快方法，如果它不能解析一个值，则计算结果为NaN。
+在谷歌浏览器中滚动图片或者滑动图片时出现浏览器的默认报错，解决方法，给全局设置样式  touch-action：pan-y；
+原始类型和引用类型有什么不同
+1.原始类型值不可变，引用类型的值是可以变的
+2.原始类型不可以添加属性和方法，引用类型可以添加属性和方法
+3.原始类型的赋值是简单的值，引用类型赋值是对象引用
+4.原始类型值的比较是值的比较，引用类型的比较是引用的比较
+5.原始类型是存放在栈区，引用类型同时存放在栈区和堆区
+es6中新增的padStart()和padEnd()
+第一个参数表示字符串长度，第二个参数表示不足的位数用什么来填充
+padStart() 表示从开头开始填充，=======字符串长度为10，在abc前面的七位使用1进行填充
+abc.padStart('10','1') ==== 1111111abc
+padEnd() 表示从尾部开始填充,===字符串长度为10，在abc后面的七位使用0进行填充
+abc.padEnd('10','0') ==== abc0000000
+instanceof能够正确判断引用类型的原因：instanceof的内部机制是通过原型链来判断（判断左边对象的原型链上是否存在右边的原型）
+重在参与，重振旗鼓。
+css样式中相对定位relative 会让样式定位的脱离标准文档流。
+页面回到顶部：window.scrollTo（0,0）
+在小程序中通过调用 wx.getMenuButtonBoundingClientRect() 获取到导航栏胶囊按钮的位置信息
+通过使用wx.getSystemInfoSync().statusBarHeight 获取到顶部状态栏的高度信息

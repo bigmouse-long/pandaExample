@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!-- <form method="post" enctype="multipart/form-data">
+       <div >
+            <div style="width: 80px;height: 70px;border:1px solid red;position: relative;" >
+                <img src="./01.png" alt=""  style="width: 100%;height: 100%;">
+                <span style="position: absolute;bottom: 1%;left: 50%;transform: translateX(-50%);">上传</span>
+            </div>
+            <input name="customer_file" type="file" id="excelFile"
+                   style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;background-color: #333333;z-index: 1001;opacity: 0;filter:alpha(opacity=0);">
+        </div>
+        
+    </form> -->
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
+<script>
+    $(function () {
+        $('#excelFile').change(function (e) {
+            // e.target得到的是input标签，e.target.files得到是一串filelist，
+            // e.target.files[0]得到的是图片的一些参数，这些参数可以根据自己的需要提取
+            var fileName = e.target.files[0].name;
+            $(this).prev().find('span').text(fileName);
+        })
+    })
+</script>
+</body>
+</html>

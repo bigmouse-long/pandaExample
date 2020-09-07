@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>
+<button id="last-week">上一周</button><button id="next-week">下一周</button>
+<table id="monitor">
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+</body>
+    <input type="range" max="100" value="80"  onchange="changeV()" id="range">
+</body>
+</html>
+<script>
+  const range = document.getElementById('range');
+
+function changeV() {
+  console.log(range.value);
+}
+</script>
+<!-- <script>
+var searchTime = '20200701';
+var mon = "周一 - " + (dealTime(1, searchTime));
+var tue = "周二 - " + (dealTime(2, searchTime));
+var wed = "周三 - " + (dealTime(3, searchTime));
+var thu = "周四 - " + (dealTime(4, searchTime));
+var fri = "周五 - " + (dealTime(5, searchTime));
+var sat = "周六 - " + (dealTime(6, searchTime));
+var sun = "周日 - " + (dealTime(0, searchTime));
+
+//处理时间方法
+function dealTime(dayNum, dat) {
+    if (dayNum == "0") {
+    	dayNum = 7;
+    }
+    var uom = new Date(), dateStr = '', fday = '';
+    fday = dat.substring(6, 8);
+    uom.setYear(dat.substring(0, 4));
+    uom.setMonth(parseInt(dat.substring(4, 6)) - 1);
+    uom.setDate(fday);
+ 
+    if(uom.getDay() == 0){
+    	uom.setDate(uom.getDate() - (7 - dayNum));
+    }else{
+    	uom.setDate(uom.getDate() - (uom.getDay() - dayNum));
+    }
+    var mon = (uom.getMonth() + 1) + '';
+    if (mon.length != 2) {
+    	mon = '0' + mon;
+    }
+    var day = uom.getDate() + '';
+    if (day.length != 2) {
+    	day = '0' + day;
+    }
+    dateStr = '' + uom.getFullYear() + mon + day;
+    return dateStr;
+}
+console.log(sun)
+</script> -->
+<!-- <script>
+window.onload = function(){     
+    var cells = document.getElementById('monitor').getElementsByTagName('td');
+    var clen = cells.length;
+    var currentFirstDate;
+    var formatDate = function(date){       
+      var year = date.getFullYear()+'年';
+      var month = (date.getMonth()+1)+'月';
+      var day = date.getDate()+'日';
+      var week = '('+['星期天','星期一','星期二','星期三','星期四','星期五','星期六'][date.getDay()]+')'; 
+
+      return year+month+day+' '+week;
+    };
+    var addDate= function(date,n){    
+      date.setDate(date.getDate()+n); 
+      console.log(date)   
+      return date;
+    };
+    var setDate = function(date){       
+      var week = date.getDay()-1;
+      date = addDate(date,week*-1);
+      currentFirstDate = new Date(date);
+
+      for(var i = 0;i<clen;i++){         
+        cells[i].innerHTML = formatDate(i==0 ? date : addDate(date,1));
+      }        
+    };       
+    document.getElementById('last-week').onclick = function(){
+      setDate(addDate(currentFirstDate,-7));     
+    };       
+    document.getElementById('next-week').onclick = function(){         
+      setDate(addDate(currentFirstDate,7));
+    };   
+    setDate(new Date());
+  }
+</script> -->
+
+<!-- //处理时间方法
+dealTime=(dayNum, dat)=> {
+ if (dayNum == "0") {
+   dayNum = 7;
+ }
+ var uom = new Date(), dateStr = '', fday = '';
+ fday = dat.substring(6, 8);
+ uom.setYear(dat.substring(0, 4));
+ uom.setMonth(parseInt(dat.substring(4, 6)) - 1);
+ uom.setDate(fday);
+
+ if(uom.getDay() == 0){
+   uom.setDate(uom.getDate() - (7 - dayNum));
+ }else{
+   uom.setDate(uom.getDate() - (uom.getDay() - dayNum));
+ }
+ var mon = (uom.getMonth() + 1) + '';
+ if (mon.length != 2) {
+   mon = '0' + mon;
+ }
+ var day = uom.getDate() + '';
+ if (day.length != 2) {
+   day = '0' + day;
+ }
+ dateStr = '' + uom.getFullYear() + mon + day;
+ return dateStr;
+} -->

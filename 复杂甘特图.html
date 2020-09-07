@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script src="./甘特图/highcharts-gantt.js"></script>
+    <!-- <script src="./甘特图/highCharts.js"></script> -->
+    <!-- <script src="./甘特图/gantt.js"></script> -->
+    <script>
+        var today = new Date(),
+            day = 1000 * 60 * 60 * 24;
+        // Set to 00:00:00:000 today
+        today.setUTCHours(0);
+        today.setUTCMinutes(0);
+        today.setUTCSeconds(0);
+        today.setUTCMilliseconds(0);
+        var data = [
+            {
+                StageTaskName: "项目团队建立",
+                color: "#E4E9E8",
+                end: 1602547200000,
+                endTime: "2020-10-13",
+                startTime: "2020-10-02",
+                partialFill: { fill: "#25BC9E", amount: 0.6 },
+                progress: "0",
+                start: 1601596800000,
+                x: 0,
+                x2: 0,
+                y: 16,
+                y1: 30
+            },
+            {
+                StageTaskName: "项目确认会",
+                color: "#E4E9E8",
+                end: 1602288000000,
+                partialFill: { fill: "#25BC9E", amount: 0 },
+                progress: "0",
+                start: 1598572800000,
+                x: 0,
+                x2: 0,
+                y: 21,
+                y1: 5,
+            },
+            {
+                StageTaskName: "项目各计划制定",
+                color: "#E4E9E8",
+                end: 1599264000000,
+                partialFill: { fill: "#25BC9E", amount: 0.6 },
+                progress: "60",
+                start: 1598572800000,
+                x: 0,
+                x2: 0,
+                y: 13,
+                y1: 5
+            }, {
+                StageTaskName: "外观设计",
+                color: "#E4E9E8",
+                end: 1599264000000,
+                partialFill: { fill: "#25BC9E", amount: 0 },
+                progress: "0",
+                start: 1598572800000,
+                x: 0,
+                x2: 0,
+                y: 19,
+                y1: 5
+            },
+            {
+                StageTaskName: "项目预算制定",
+                color: "#E4E9E8",
+                end: 1599004800000,
+                partialFill: { fill: "#25BC9E", amount: 0 },
+                progress: "0",
+                start: 1598572800000,
+                x: 0,
+                x2: 0,
+                y: 17,
+                y1: 5
+            },
+            {
+                StageTaskName: "项目各计划制定",
+                color: "#E4E9E8",
+                end: 1598918400000,
+                partialFill: { fill: "#FF9900", amount: 0.6 },
+                progress: "60",
+                start: 1598572800000,
+                x: '2020-12-12',
+                x2: '2020-15-12',
+                y: 14,
+                y1: 5,
+            }
+        ]
+        // THE CHART
+        Highcharts.ganttChart('container', {
+            chart: {
+                marginBottom: 0,
+                // marginLeft:0,
+                spacingTop: 0
+            },
+            title: {
+                text: null
+            },
+            scrollbar: {
+                enabled: true,
+                margin: 0
+            },
+            tooltip: {
+                followPointer: false,
+                // shared: true,
+                useHTML: true,
+                // headerFormat: '<small>产品性能目标</small><table>',
+                headerFormat: '<table>',
+                pointFormat: '<tr><span>{point.StageTaskName}</span></tr><tr><td style="color:#333">持续时间: <span>{point.y1}天</span></td></tr>' +
+                    '<tr><td>当前进度:<span style="color:{point.partialFill.fill}">{point.progress}%</span></td></tr><tr><td>计划开始日期:<span style="color:#5D5D5D">{point.startTime}</span></td></tr><tr><td>计划结束日期:<span style="color:#5D5D5D">{point.endTime}</span></td></tr>',
+                footerFormat: '</table>',
+                style: {
+                    padding: 10,
+                    fontWeight: 'bold',
+                    color: '#333',
+                },
+            },
+
+            xAxis: [{
+                min: 1598914400000,
+                max: 1602547200000,
+                gridLineWidth: 1,
+                tickInterval: 24 * 3600 * 1000 * 7, //x轴时间刻度间隔 进行周和月的切换
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    day: '%d/%m',   //天
+                    week: '%m/%d', //周
+                    month: '%m', //月
+                },
+
+
+                // grid:{
+                //     // cellHeight x轴单元格高度
+                //     cellWidth:100,
+                // }
+                //             labels: {
+                // 	format: '第 {value:%W} 周'	
+                // }
+            }, {
+
+                // 控制最上面的x轴
+                labels: {
+                    format: ' {value:%W} 月'
+                }
+            }],
+
+            yAxis: {
+                // 去除左边框
+                grid: {
+                    borderWidth: 0,
+                    cellHeight: 100
+                },
+            },
+            series: [{
+                borderColor: '#E4E9E8',//进度条颜色
+                pointWidth: 20, //进度条宽度
+                borderRadius: 10,  //进度条边框
+
+                data: data,
+                // 不显示当前进度
+                dataLabels: {
+                    enabled: false
+                }
+            }]
+        });
+        // 甘特图全局配置
+        Highcharts.setOptions({
+            global: {
+                useUTC: false //中文区时间格式
+            },
+            // 所有语言文字相关配置都设置在 lang 里
+            lang: {
+                resetZoom: '重置',
+                resetZoomTitle: '重置缩放比例',
+                rangeSelectorZoom: '范围', // 不显示 'zoom' 文字
+                noData: '暂无数据',
+                months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                shortMonths: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                weekdays: ['日', '一', '二', '三', '四', '五', '六'],
+                rangeSelectorFrom: "起始",
+                rangeSelectorTo: "结束",
+            }
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+//         let arr = [12,3,11,4,5,28,7,6];
+// for (var i = 0; i < arr.length-1; i++) {
+//     for (var j = 0; j < arr.length-i-1; j++) {
+//         if (arr[j] > arr[j+1]){
+//             let tmp = arr[j];
+//             arr[j] = arr[j+1];
+//             arr[j+1] = tmp;
+//         }
+//     }
+//     console.log('newArr', arr);
+// }
+function compare(a,b){
+                if(a>b){
+                    return 1; //sort()中参数大于0，交换a b顺序，升序排列
+                }else if(a<b){
+                    return -1;  //sort()中参数小于0，a b顺序不变，升序排列
+                }
+            }
+
+            var arr = [2, 18, 32, 7, 7, 1, 2, 9, 0, 17, 6, 0, 9, 11, 4, 10, 0, 20, 2, 43, 0, 19, 25, 13, 1, 0, 15, 16, 0, 0, 7, 0, 0, 0, 0, 0]
+            var newArr = arr.sort(compare); 
+            console.log(newArr)
+    </script>
+</body>
+</html>

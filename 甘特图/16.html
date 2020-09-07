@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+body,html{
+    height: 100%;
+}
+.SJ_content h3 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .SJ_content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: column;
+        padding: 10px;
+        font-family: 思源黑体;
+    }
+    .SJ_title {
+        height: 80px;
+        width: 100%;
+        flex: none;
+        background-color: #fff;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+        flex-flow: column;
+        position: relative;
+        padding: 0 15px;
+        background: #fff url(assets/images/oa/集团OA/项目进度.png) 40px center no-repeat;
+        padding-left: 110px;
+    }
+
+    .SJ_title>h3 {
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        color: #666;
+    }
+
+    .SJ_title>h3 .BackToMain {
+        position: absolute;
+        left: 10px;
+        top: 0;
+        height: 100%;
+        width: 40px;
+        display: flex;
+        align-items: center;
+    }
+
+    .SJ_title>ul {
+        display: flex;
+        list-style: none;
+        font-size: 14px;
+        margin: 0;
+        align-items: center;
+    }
+
+    .SJ_title>ul>li {
+        /* min-width: 180px; */
+        margin-right: 20px;
+    }
+
+    .SJ_title>ul>li>span {
+        font-weight: bold;
+        color: #02C8AA;
+    }
+    .SJ_title .showHand span {
+        font-size: 16px;
+    }
+    .SJ_title .ganttChart{
+        background: #25BC9E;
+        color: #fff;
+        width: 96px;
+        height: 32px;
+        text-align: center;
+        line-height: 32px;
+    }
+    .taskProgress{
+        display: flex;
+        height: 50px;
+        background: #FFFFFF;
+        position: relative;
+    }
+    .taskProgress .taskBar{
+        width: 2px;
+        height: 15px;
+        background:#25BC9E ;
+        position: absolute;
+        top: 50%;
+        left: 1%;
+        transform: translateY(-50%);
+    }
+    .taskProgress .taskSchedule{
+        flex: 3;
+        line-height: 50px;
+        margin-left: 30px;
+        font-size: 14px;
+        color: #333;
+        font-weight:bold;
+    }
+    .taskProgress .taskXRange{
+        flex: 7;
+        line-height: 50px;
+        margin-left: 40px;
+        position: relative;
+        font-size: 14px;
+        color: #333;
+    }
+    .taskProgress .taskXRange_img{
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        transform: translateY(-50%);
+    }
+    .taskProgress span{
+        margin-left: 40px;
+        font-weight: normal;
+    }
+    .taskContent{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        margin-top: 10px; 
+        font-size: 14px;
+        color: #333;
+    }
+   .taskContent .task_left{
+        flex: 3;
+        background: #ffffff;
+    }
+    .task_left .task_title{
+        display: flex;
+        width: 100%;
+        font-weight: bold;
+        height: 40px;
+        line-height: 40px;
+    }
+    .task_left .task_first{
+        display: flex;
+        width: 100%;
+        line-height: 48px;
+        height: 48px;
+        border-bottom:1px solid #ECEFEF
+    }
+    .task_first .task_first_name{
+        flex: 3;
+        padding-left: 20px;
+        position: relative;
+    }
+    .task_first_name .task_first_name_img{
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        transform: translateY(-50%);
+    }
+    .task_left .task_second{
+        display: flex;
+        width: 95%;
+        margin-left: 5%;
+        font-weight: 400;
+        height: 48px;
+        line-height: 48px;
+        border-bottom:1px solid #ECEFEF
+    }
+    .goBack{
+        position: fixed;
+        right: 2%;
+        top: 18%;
+        z-index: 2;
+        font-size: 14px;
+    }
+    .goBack>button[name="reBack"] {
+        background: #25bc9e;
+        border-radius: 3px;
+        color: #FFFFFF;
+        border: none;
+        padding: 5px 20px;
+        margin: 0 10px 0 10px;
+    }
+    .stnNavTimeSelect {
+        display: flex;
+        align-items: center;
+        padding-right: 24px;
+        padding-bottom: 15px;
+    }
+    .stnNavTime {
+        height:30px;
+        border-radius: 3px;
+        border-color: #CCD3D1;
+        font-size: 14px;
+        width: 88px;
+    }
+    /* .SJ_content{
+    overflow: hidden;
+    height: 100%;
+}
+/* --- 滚动部分 --- */
+#嘻嘻{
+    height: 100%;
+    background: red;
+}
+    </style>
+</head>
+<body >
+    
+    <div class="SJ_content wkt-scroll-light"  style="background:#F1F6F6">
+        <div class="goBack">
+            <button class="btn btn-main-v5 btn-sm" name="reBack">返回</button>
+        </div>
+        <div class="SJ_title">
+            <h3>
+                <div class="showHand" title="返回">
+                    <span>熊猫宝典</span>
+                </div>
+                <div class="BackToMain showHand" title="返回">
+                    <img src="assets/images/oa/集团OA/集团返回.png" alt="">
+                </div>
+            </h3>
+            <ul style="padding: 0;">
+                <li>项目经理：<span class="projectJL">马永新</span></li>
+                <li style="margin-right: auto;">当前阶段停留时间：<span class="stayTime">7天</span></li>
+               <!-- <li  class="ganttChart">任务甘特图</li> -->
+            </ul>
+        </div>
+        <div class="taskProgress">
+            <div  class="taskBar"></div>
+            <div  class="taskSchedule">项目进度</div>
+            <div  class="taskXRange">
+                <img src="assets/images/oa/集团OA/当前时间.png" alt="" class="taskXRange_img">
+                <span >2019年10月</span>
+            </div>
+            <!-- 下拉框的选择 -->
+            <!-- <div class="stnNavTimeSelect">
+                <select name="" id="" class="stnNavTime">
+                    <option value="天">天</option>
+                    <option value="周">周</option>
+                </select>
+            </div> -->
+        </div>
+       <div  class="taskContent">
+        <div  class="task_left">
+            <div  class="task_title" style="border-bottom:1px solid #ECEFEF">
+                <div style="flex: 3;padding-left: 5%;">名称</div>
+                <div style="flex: 2;">负责人</div>
+                <div style="flex: 1;">任务进度</div>
+            </div>
+            <!-- 一级任务 -->
+            <div class="task_first" >
+                <div class="task_first_name">
+                    <img src="assets/images/oa/集团OA/箭头.png" alt=""  class="task_first_name_img">
+                    <span style="font-weight: bold;">立项报告制定</span>
+                </div>
+                <div style="flex: 2;padding-left: 10px;">林思雅</div>
+                <div style="flex: 1;">30%</div>
+            </div>
+            <!-- 二级任务 -->
+            <div  class="task_second" >
+                <div style="flex: 3;">二级任务</div>
+                <div style="flex: 2;">负责人</div>
+                <div style="flex: 1;">进度</div>
+            </div>
+            <div  class="task_second" >
+                <div style="flex: 3;">二级任务</div>
+                <div style="flex: 2;">负责人</div>
+                <div style="flex: 1;">进度</div>
+            </div>
+            <div  class="task_second">
+                <div style="flex: 3;">二级任务</div>
+                <div style="flex: 2;">负责人</div>
+                <div style="flex: 1;">进度</div>
+            </div>
+            
+            <!-- 一级任务 -->
+            <div class="task_first">
+                <div class="task_first_name">
+                    <img src="assets/images/oa/集团OA/箭头.png" alt=""  class="task_first_name_img">
+                    <span style="font-weight: bold;">社会效益分析</span>
+                </div>
+                <div style="flex: 2;padding-left: 10px;">林思雅</div>
+                <div style="flex: 1;">30%</div>
+            </div>
+            <div  class="task_second">
+                <div style="flex: 3;">二级任务</div>
+                <div style="flex: 2;">负责人</div>
+                <div style="flex: 1;">进度</div>
+            </div>
+            <div  class="task_second">
+                <div style="flex: 3;">二级任务</div>
+                <div style="flex: 2;">负责人</div>
+                <div style="flex: 1;">进度</div>
+            </div>
+            <div  class="task_second">
+                <div style="flex: 3;">二级任务</div>
+                <div style="flex: 2;">负责人</div>
+                <div style="flex: 1;">进度</div>
+            </div>
+            <div  class="task_second">
+                <div style="flex: 3;">二级任务</div>
+                <div style="flex: 2;">负责人</div>
+                <div style="flex: 1;">进度</div>
+            </div>
+        </div>
+        <div style="flex: 7;margin-left: 10px;background: #fff;overflow-x: scroll;" id="container" >
+    
+        </div>
+       </div>
+    </div>  
+
+   
+</body>
+</html>
+<script src="./highCharts.js"></script>
+<script src="./xrange.js"></script>
+<script>
+    let data=[{
+        x: Date.UTC(2014, 10, 21),
+        x2: Date.UTC(2014, 11, 2),
+        start:'2020-06-06', //开始时间
+        end:'2020-06-66',//结束时间
+        color:'#fff',
+        // 设置当前激活比率填充色
+       partialFill:{
+           fill:'#333',//
+           amount:0.25
+       },
+        y: 0,
+        y1:'2天',//设置持续时间
+        progress:20,
+        // partialFill: 0.25,
+    },
+     {
+        x: Date.UTC(2014, 11, 2),
+        x2: Date.UTC(2014, 11, 5),
+        color:'#ff0000',//设置当前时间轴的颜色
+        y: 1
+    }, {
+        x: Date.UTC(2014, 11, 8),
+        x2: Date.UTC(2014, 11, 9),
+        y: 2
+    }, {
+        x: Date.UTC(2014, 11, 9),
+        x2: Date.UTC(2014, 11, 19),
+        color:'blue',
+        y: 3
+    }, {
+        x: Date.UTC(2014, 11, 10),
+        x2: Date.UTC(2014, 11, 23),
+        y: 4
+    },{
+        x: Date.UTC(2014, 11, 1),
+        x2: Date.UTC(2014, 11, 10),
+        y: 5
+    },{
+        x: Date.UTC(2014, 11, 10),
+        x2: Date.UTC(2014, 11, 25),
+        partialFill: 0.55,
+        start:'2020-06-06', //开始时间
+        end:'2020-06-66',//结束时间
+        y: 6,
+        y1:'2天',//设置持续时间
+        progress:20,
+    },{
+        x: Date.UTC(2014, 11, 1),
+        x2: Date.UTC(2014, 11, 10),
+        y: 7
+    },
+    {
+        x: Date.UTC(2014, 12, 1),
+        x2: Date.UTC(2014, 12, 10),
+        y: 8
+    },]
+    let chartHeight=data.length*48+48+'px'
+    document.getElementById("container").style.height=chartHeight
+    Highcharts.chart('container', {
+chart: {
+    type: 'xrange',
+    marginBottom: 0,
+    marginTop:40
+},
+credits:{
+    enabled:false
+},
+title: {
+    text: ''
+},
+xAxis: {
+    type: 'datetime',
+    dateTimeLabelFormats: {
+        day: '%e', //按天
+        week:'%d', //按周
+        month:'%m'
+    },
+    labels:{
+        // 定义x轴样式
+        style:{
+            color:"red",
+            fontSize:'14px',
+        },
+    },
+    tickInterval:24 * 3600 * 1000*7, //刻度之间相隔时间
+    opposite:true,
+},
+yAxis: {
+    title: {
+        text: ''
+    },
+    categories: ['', '', '','','', '', '','',''],
+    reversed: true,
+    labels:{
+        // 定义y轴样式
+        style:{
+            color:"red",
+            fontSize:'12px',
+        },
+    }
+},
+tooltip: {
+
+        shared: true,
+        useHTML: true,
+        headerFormat: '<small>产品性能目标</small><table>',
+        pointFormat: '<tr><td style="color:#333">持续时间: <span>{point.y1}</span></td></tr>' +
+        '<tr><td>当前进度:<span style="color:#6BBDAD">{point.progress}%</span></td></tr><tr><td>计划开始日期:<span style="color:#5D5D5D">{point.start}</span></td></tr><tr><td>计划结束日期:<span style="color:#5D5D5D">{point.end}</span></td></tr>',
+        footerFormat: '</table>',
+    style: {
+            padding: 10,
+            fontWeight: 'bold',
+            color:'#333',
+        }
+},
+legend:{
+    enabled:false,
+},
+series: [{
+    
+    // pointPadding: 0,
+    // groupPadding: 0,
+    borderColor: '#E4E9E8',//进度条颜色
+    borderWidth:3, //进度条宽度
+    pointWidth: 20, //进度条宽度
+    borderRadius:10,  //进度条边框
+    data: data
+    // {
+    //     x: Date.UTC(2014, 12, 1),
+    //     x2: Date.UTC(2014, 12, 10),
+    //     y: 9
+    // },{
+    //     x: Date.UTC(2014, 12, 1),
+    //     x2: Date.UTC(2014, 12, 10),
+    //     y: 10
+    // },
+    // {
+    //     x: Date.UTC(2014, 12, 1),
+    //     x2: Date.UTC(2014, 12, 10),
+    //     y: 11
+    // },
+    // {
+    //     x: Date.UTC(2014, 12, 1),
+    //     x2: Date.UTC(2014, 12, 10),
+    //     y: 12
+    // }
+    ,
+    dataLabels: {
+        enabled: true
+    }
+}]
+});
+// let data=[{
+    //     x: Date.UTC(2014, 10, 21),
+    //     x2: Date.UTC(2014, 11, 2),
+    //     start:'2020-06-06', //开始时间
+    //     end:'2020-06-66',//结束时间
+    //     color:'#E4E9E8',
+    //     // 设置当前激活比率填充色
+    //    partialFill:{
+    //        fill:'#25BC9E',//
+    //        amount:0.25
+    //    },
+    //     y: 0,
+    //     y1:'2天',//设置持续时间
+    //     progress:20,
+    // },
+    //  {
+    //     x: Date.UTC(2014, 11, 2),
+    //     x2: Date.UTC(2014, 11, 5),
+    //     color:'#E4E9E8',
+    //     // 设置当前激活比率填充色
+    //    partialFill:{
+    //        fill:'#25BC9E',//
+    //        amount:0.5
+    //    },
+    //     y: 1
+    // }, {
+    //     x: Date.UTC(2014, 11, 8),
+    //     x2: Date.UTC(2014, 12, 9),
+    //     y: 2,
+    //     color:'#E4E9E8',
+    //     // 设置当前激活比率填充色
+    //    partialFill:{
+    //        fill:'#25BC9E',//
+    //        amount:0.45
+    //    },
+    // }, {
+    //     x: Date.UTC(2014, 11, 9),
+    //     x2: Date.UTC(2014, 11, 19),
+    //     color:'blue',
+    //     color:'#E4E9E8',
+    //     // 设置当前激活比率填充色
+    //    partialFill:{
+    //        fill:'#25BC9E',//
+    //        amount:0.65
+    //    },
+    //     y: 3
+    // }, {
+    //     x: Date.UTC(2014, 11, 10),
+    //     x2: Date.UTC(2014, 11, 23),
+    //     y: 4,
+    //     color:'#E4E9E8',
+    //     // 设置当前激活比率填充色
+    //    partialFill:{
+    //        fill:'#25BC9E',//
+    //        amount:0.25
+    //    },
+    // },{
+    //     x: Date.UTC(2014, 11, 1),
+    //     x2: Date.UTC(2014, 11, 10),
+    //     color:'#E4E9E8',
+    //     // 设置当前激活比率填充色
+    //    partialFill:{
+    //        fill:'#25BC9E',//
+    //        amount:0.25
+    //    },
+    //     y: 5
+    // },{
+    //     x: Date.UTC(2014, 11, 10),
+    //     x2: Date.UTC(2014, 11, 25),
+    //     partialFill:{
+    //         fill:'#E4E9E8',//
+    //         amount:0.25
+    //     },
+    //     color: "#EBEFEF",
+    //     start:'2020-06-06', //开始时间
+    //     end:'2020-06-66',//结束时间
+    //     color:'#E4E9E8',
+    //     // 设置当前激活比率填充色
+    //    partialFill:{
+    //        fill:'#FF9900',//
+    //        amount:0.25
+    //    },
+    //     y: 6,
+    //     y1:'2天',//设置持续时间
+    //     progress:20,
+    // },{
+    //     x: Date.UTC(2014, 11, 1),
+    //     x2: Date.UTC(2014, 11, 10),
+    //     color:'#E4E9E8',
+    //     // 设置当前激活比率填充色
+    //    partialFill:{
+    //        fill:'#FF9900',//
+    //        amount:0.25
+    //    },
+    //     y: 7
+    // },
+    // {
+    //     x: Date.UTC(2014, 12, 1),
+    //     x2: Date.UTC(2014, 12, 10),
+    //     color:'#E4E9E8',
+    //     // 设置当前激活比率填充色
+    //    partialFill:{
+    //        fill:'#25BC9E',//
+    //        amount:0.25
+    //    },
+    //     y: 8
+    // },]
+    // let chartHeight=data.length*48+48+'px'
+    // this.$el.find(".container").get(0).style.height=chartHeight
+    // var options=  {
+    //     chart: {
+    //         type: 'xrange',
+    //         marginBottom: 0,
+    //         marginTop:40,
+    //         marginLeft:0,
+    //         marginRight: 0
+    //     },
+    //     credits:{
+    //         enabled:false
+    //     },
+    //     title: {
+    //         text: ''
+    //     },
+    //     xAxis: {
+    //         type: 'datetime',
+    //         dateTimeLabelFormats: {
+    //             day: '%e', //按天
+    //             week:'%d', //按周
+    //             month:'%m' //按月
+    //         },
+    //         labels:{
+    //             // 定义x轴样式
+    //             style:{
+    //                 color:"#333",
+    //                 fontSize:'14px',
+    //             },
+    //         },
+    //         gridLineColor: '#EFEFEF',
+    //         gridLineWidth: 1,
+    //         opposite:true,
+    //     },
+    //     yAxis: {
+    //         title: {
+    //             text: ''
+    //         },
+    //         categories: ['', '', '','','', '', '','',''],
+    //         reversed: true,
+    //         labels:{
+    //             // 定义y轴样式
+    //             style:{
+    //                 color:"red",
+    //                 fontSize:'12px',
+    //             },
+    //         }
+    //     },
+    //     tooltip: {
+        
+    //             shared: true,
+    //             useHTML: true,
+    //             headerFormat: '<small>产品性能目标</small><table>',
+    //             pointFormat: '<tr><td style="color:#333">持续时间: <span>{point.y1}</span></td></tr>' +
+    //             '<tr><td>当前进度:<span style="color:#6BBDAD">{point.progress}%</span></td></tr><tr><td>计划开始日期:<span style="color:#5D5D5D">{point.start}</span></td></tr><tr><td>计划结束日期:<span style="color:#5D5D5D">{point.end}</span></td></tr>',
+    //             footerFormat: '</table>',
+    //         style: {
+    //                 padding: 10,
+    //                 fontWeight: 'bold',
+    //                 color:'#333',
+    //             }
+    //     },
+    //     legend:{
+    //         enabled:false,
+    //     },
+    //     series: [{
+            
+    //         // pointPadding: 0,
+    //         // groupPadding: 0,
+    //         borderColor: '#E4E9E8',//进度条颜色
+    //         // borderWidth:3, //进度条宽度
+    //         pointWidth: 20, //进度条宽度
+    //         borderRadius:10,  //进度条边框
+    //         data: data,
+    //         // 显示当前值
+    //         dataLabels: {
+    //             enabled: false
+    //         }
+    //     }]
+    //     };
+    // var chart = Highcharts.chart(this.$el.find(".container").get(0), options)
+</script>

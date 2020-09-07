@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ganttu.html</title>
+<meta name="keywords" content="keyword1,keyword2,keyword3">
+<meta name="content-type" content="text/html; charset=UTF-8">
+
+<meta name="description" content="liuyuhang    的甘特图,当前版本1.0,2019-02-19">
+<meta name="description" content="时间日期格式:yyyy-mm-dd">
+<meta name="description" content="①计划进度与实际进度双重进度体系">
+<meta name="description" content="②有前置任务连接线">
+<meta name="description" content="③可修改图颜色">
+<meta name="description" content="④可隐藏与展示列">
+<meta name="description" content="⑤可隐藏域展示子项目">
+<meta name="description" content="⑥可跳转时间到当前时间">
+<meta name="description" content="⑦可从当前项目开始时间查看">
+<meta name="description" content="⑦可隐藏某时间之前的内容">
+
+<meta name="warning" content="⑧未做图拖拽,并不打算做...">
+
+<meta name="author" content="liuyuhang 13501043063">
+<!-- 只引用了这些,其余的并没有引用 -->
+<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+#ganttu-head {
+    height: 70px;
+    background-color: #dddddd;
+    padding: 10px 20px;
+}
+
+#ganttu-body {
+    min-height: 780px;
+    background-color: #eeeeee;
+    padding: 10px 20px;
+    font-size: 20px;
+}
+
+#ganttu-index-projectName {
+    display: inline;
+    padding: 5px 15px;
+    background-image: linear-gradient(to left, #222222 0%, #222222 75%, #000000 100%);
+    color: white;
+    border-radius: 18px;
+}
+
+#ganttu-index-projectDesc {
+    display: inline;
+    padding: 5px 15px;
+    background-image: linear-gradient(to left, #777777 0%, #777777 75%, #333333 100%);
+    color: white;
+    border-radius: 18px;
+}
+
+td {
+    white-space: nowrap
+}
+</style>
+</head>
+<body>
+    <div id='ganttu-head' class='col-lg-12 col-md-12 col-sm-12 col-xs-12' style=''>
+        <div style='display: inline;font-size: 30px;font-weight: 430;padding: 5px 15px;'>甘特图面板</div>
+        <div id='ganttu-index-projectName'>此项目 名称...</div>
+        <div id='ganttu-index-projectDesc'>此项目描述...</div>
+    </div>
+    <div id='ganttu-body' class='col-lg-12 col-md-12 col-sm-12 col-xs-12' style=';overflow-x:scroll;font-size:14px;'>
+        <!-- 甘特图放到了这个div中 -->
+        <div id="lyh-ganttu" class='col-lg-12 col-md-12 col-sm-12 col-xs-12' style='position:relative;padding:0px;height:700px;'></div>
+    </div>
+</body>
+<script type="text/javascript">
+    $(function() {
+        lyhGanttuInit('lyh-ganttu'); //甘特图初始化
+    })
+
+    /**
+     * 甘特图数据,变量名固定
+     */
+    var lyhGanttuData = {
+        data : [
+            {
+                'id' : 1,
+                'pid' : 0,
+                'projectName' : '任务1',
+                'projectCode' : 'task01',
+                'planStartAt' : '2019/02/01',
+                'planEndAt' : '2019/02/11',
+                'startAt' : '2019/1/31',
+                'endAt' : '2019/02/12',
+                'persent' : '100%',
+                'resps' : [ '刘宇航' ],
+                'actors' : [ '刘宇航a' ],
+                'insiders' : [ '刘宇航i' ],
+                'dur' : 3, //计划时间跨度
+                'before' : [], //前置任务id
+            },
+            {
+                'id' : 2,
+                'pid' : 1,
+                'projectName' : '任务2',
+                'projectCode' : 'task02',
+                'planStartAt' : '2019/02/01',
+                'planEndAt' : '2019/02/03',
+                'startAt' : '2019/1/31',
+                'endAt' : '2019/02/04',
+                'persent' : '100%',
+                'resps' : [ '刘宇航2' ],
+                'actors' : [ '刘宇航b' ],
+                'insiders' : [ '刘宇航j' ],
+                'dur' : 4,
+                'before' : [],
+            },
+            {
+                'id' : 3,
+                'pid' : 1,
+                'projectName' : '任务3',
+                'projectCode' : 'task03',
+                'planStartAt' : '2019/02/04',
+                'planEndAt' : '2019/02/07',
+                'startAt' : '2019/02/05',
+                'endAt' : '2019/02/07',
+                'persent' : '100%',
+                'resps' : [ '张三', '李四', '王五' ],
+                'actors' : [ '张三a', '李四b', '王五c' ],
+                'insiders' : [ '刘宇航k', '刘宇航f' ],
+                'dur' : 4,
+                'before' : [ 2 ],
+            },
+            {
+                'id' : 4,
+                'pid' : 1,
+                'projectName' : '任务4',
+                'projectCode' : 'task04',
+                'planStartAt' : '2019/02/08',
+                'planEndAt' : '2019/02/11',
+                'startAt' : '2019/02/08',
+                'endAt' : '2019/02/12',
+                'persent' : '100%',
+                'resps' : [ '李四', '王五' ],
+                'actors' : [ '李四b', '王五c' ],
+                'insiders' : [ '刘宇航k', '刘宇航f' ],
+                'dur' : 4,
+                'before' : [ 2, 3 ],
+            },
+        ]
+    }
+
+    /**
+     * 甘特图设置,变量名固定
+     */
+    var lyhGanttuConfig = {
+        start : '1900/01/01', //初始化开始时间配置    - 别在意
+        end : '1900/01/10', //初始化结束时间配置    - 别在意
+        planBorder : '#1a8cff', //计划进度的border颜色
+        planBackground : '#80bfff', //计划进度的back颜色
+        border : '#ffaa00', //实际进度的border染颜色
+        background : '#ffcc66', //实际进度的back颜色
+        lineColor : 'green', //前置任务线颜色
+        //表格中的thead的题头设置,可按照格式任意添加或减少
+        labels : {
+            'projectName' : {
+                'name' : '         任务名         ',
+                'show' : true,
+            }, //任务名
+            'projectCode' : {
+                'name' : '编号',
+                'show' : true,
+            }, //编号
+            'planStartAt' : {
+                'name' : '计划开始',
+                'show' : true,
+            }, //计划开始时间
+            'planEndAt' : {
+                'name' : '计划结束',
+                'show' : false,
+            }, //计划结束时间
+            'startAt' : {
+                'name' : '实际开始',
+                'show' : false,
+            }, //实际开始时间
+            'endAt' : {
+                'name' : '实际结束',
+                'show' : false,
+            }, //实际结束时间
+            'persent' : {
+                'name' : '完成比例',
+                'show' : true,
+            }, //完工百分比
+            'dur' : {
+                'name' : '时长',
+                'show' : true,
+            }, //持续时间
+            'resps' : {
+                'name' : '负责人',
+                'show' : true,
+            }, //负责人
+            'actors' : {
+                'name' : '参与人',
+                'show' : true,
+            }, //参与人
+            'insiders' : {
+                'name' : '知情人',
+                'show' : false,
+            }, //知情人
+            'before' : {
+                'name' : '前置任务',
+                'show' : false,
+            }, //前置任务
+            'operate' : {
+                'name' : "<button title='新建计划' class='btn btn-primary btn-xs'><span class='glyphicon glyphicon-plus' style='margin-right:0px'></span></button>",
+                'show' : true,
+            }, //修改按钮
+        }
+    }
+
+    /**
+     * 添加修改功能
+     */
+    function lyhGanttuDataModifyByOperate() {
+        var data = lyhGanttuData.data
+        for (var i = 0; i < data.length; i++) {
+            data[i]['operate'] = "<button title='修改此计划' class='btn btn-primary btn-xs'><span class='glyphicon glyphicon-edit' style='margin-right:0px'></span></button>";
+        }
+    }
+
+    //================
+    //以下为甘特图本身的绘图代码,调用lyhGanttuInit,参数为要加载甘特图的id
+    //请使用谷歌浏览器,缩放倍数为100%
+
+    /**
+     * 甘特图初始化函数
+     */
+    function lyhGanttuInit(target) {
+        //重置日期设置缓存
+        lyhGanttuConfig.start = '1900/01/01';
+        lyhGanttuConfig.end = '1900/01/10';
+        lyhGanttuConfigModifyByDate(); //过滤所有时间,获取时间长度
+        lyhGanttuDataModifyByOperate(); //添加点修改或新增数据按钮
+        var table = lyhGanttuTable(target);
+        $('#' + target).html(table);
+        drawLink(target); //线条初始化
+        //提示工具初始化
+        $('#' + target).find('[title]').attr('data-toggle', 'tooltip').attr('data-placement', 'right');
+        $("[data-toggle='tooltip']").tooltip();
+        //标记today    
+        var today = lyhGanttuDate(new Date()); //今天的日期字符串
+        var todayIn = $('#' + target + ' .table thead tr #date').find('[data-original-title=\'' + today + '\']');
+        if (todayIn.length > 0) {
+            todayIn.addClass('todayDiv').css('background-color', 'orange').append($('<div>').css({
+                'height' : parseInt($('#' + target + ' .table').css('height').split('px')[0]) - 45 + 'px',
+                'position' : 'absolute',
+                'z-index' : 202,
+                'margin-top' : '-40px',
+                'margin-left' : '-10px',
+                'border-left' : '2px dashed red',
+            }).append($('<button>').addClass('btn btn-danger btn-xs todayBtn').css('margin-left', '3px').html(' today ')))
+        }
+    }
+
+    /**
+     * 绘制甘特图基础函数
+     */
+    function lyhGanttuTable(target) {
+        var htr = $('<tr>').addClass('text-center');
+        var labels = lyhGanttuConfig.labels; //head的标签json
+        var start = lyhGanttuConfig.start; //总开始时间
+        var end = lyhGanttuConfig.end; //总结束时间
+        var pBorder = lyhGanttuConfig.planBorder;
+        var pBackground = lyhGanttuConfig.planBackground;
+        var border = lyhGanttuConfig.border;
+        var background = lyhGanttuConfig.background;
+        var indexBtn = $('<button>').addClass('btn btn-success btn-xs').append("<span class='glyphicon glyphicon-chevron-down' style='margin-right:0px'></span><span class='glyphicon glyphicon-chevron-right' style='display:none;margin-right:0px'></span>");
+        indexBtn.click(function() { //展开或隐藏所以有任务卡点击函数
+            var me = $(this);
+            var indexBtnDown = me.find('.glyphicon-chevron-down'); //转开状态
+            var indexBtnRight = me.find('.glyphicon-chevron-right'); //隐藏状态
+            var meTrs = $('#' + target + ' .table tr');
+            var meTdsHide = meTrs.find('div[hideId]');
+            if (indexBtnRight.is(':hidden')) { //若当前为展开状态,则隐藏,同时调整按钮
+                meTdsHide.parent().parent().hide(300);
+                indexBtnRight.show();
+                indexBtnDown.hide();
+            } else { //当前为隐藏状态,则展开
+                meTdsHide.parent().parent().show(300);
+                indexBtnRight.hide();
+                indexBtnDown.show();
+            }
+            setTimeout(function() { //重新绘图
+                drawLink('lyh-ganttu');
+            }, 400)
+
+        })
+        var index = $('<td>').append(indexBtn);
+        htr.append(index); //添加index
+        //循环添加label
+        for (var label in labels) {
+            var htd = $('<td>').append($('<div>').attr('id', label).html(labels[label].name));
+            if (labels[label].show != true) {
+                htd.css('display', 'none');
+            }
+            htr.append(htd);
+        }
+
+        //添加甘特图的日期头
+        var dataHtd = $('<td>').attr('id', 'date').css('width', '50%').css('padding', '0px');
+        var hDivs = lyhGanttuHeadDivs(target);
+        for (var i = 0; i < hDivs.length; i++) {
+            dataHtd.append(hDivs[i]);
+        }
+        htr.append(dataHtd);
+        //添加甘特图的数据内容
+        var tbody = $('<tbody>')
+        var data = lyhGanttuData.data;
+        for (var i = 0; i < data.length; i++) {
+            //写入展开按钮
+            var btr = $('<tr>').addClass('text-center').css('max-height', '40px');
+            if (data[i].pid == 0) {
+                var plusBtn = $('<button>').append("<span class='glyphicon glyphicon-flag' style='margin-right:0px'></span>").addClass('btn btn-success btn-xs').attr('title', '展开/隐藏-计划').attr('id', data[i]['id']);
+                plusBtn.click(function() { //任务展开与隐藏按钮点击函数
+                    var me = $(this);
+                    var meId = me.attr('id');
+                    var meTrs = $('#' + target + ' .table tr');
+                    var meTdsHide = meTrs.find('div[hideId=' + meId + ']');
+                    if (meTdsHide.is(':hidden')) { //已经隐藏
+                        meTdsHide.parent().parent().show(300);
+                    } else {
+                        meTdsHide.parent().parent().hide(300);
+                    }
+                    setTimeout(function() { //重新绘图
+                        drawLink('lyh-ganttu');
+                    }, 400)
+
+                })
+                var plus = $('<td>').css('padding', '5px').append(plusBtn)
+            } else {
+                var plus = $('<td>').css('padding', '5px').append($('<div>').attr('id', data[i]['id']).attr('hideId', data[i]['pid']).attr('title', '工作包').append("<span class='glyphicon glyphicon-tasks' style='margin-right:0px'></span>"));
+            }
+            btr.append(plus)
+            //写入数据
+            for (var label in labels) {
+                for (var key in data[i]) {
+                    if (label == key) {
+                        if (label.indexOf('At') > -1) { //若是时间数据,则截取一下
+                            var tda = $('<td>').css('padding', '5px').append($('<div>').addClass(key).html(data[i][key].substr(5, 5)).attr('title', data[i][key]))
+                        } else if (label == 'resps' || label == 'actors' || label == 'insiders') { //负责人,参与人,知情人加载
+                            var tda = $('<td>').css('padding', '5px').append($('<div>').addClass(key).html(data[i][key][0]).attr('title', data[i][key]));
+                        } else if (label == 'before') { //前置任务
+                            var befores = data[i][key];
+                            var beforesNames = [];
+                            if (befores.length > 0) {
+                                for (var j = 0; j < data.length; j++) {
+                                    for (var k = 0; k < befores.length; k++) {
+                                        if (data[j].id == befores[k]) {
+                                            beforesNames.push(data[j].projectName);
+                                        }
+                                    }
+                                }
+                            } else {
+                                beforesNames.push('无');
+                            }
+                            var tda = $('<td>').css('padding', '5px').append($('<div>').addClass(key).html(beforesNames[0]).attr('title', beforesNames));
+                        } else { //其他信息加载
+                            var tda = $('<td>').css('padding', '5px').append($('<div>').addClass(key).html(data[i][key]));
+                        }
+                        if (labels[label].show != true) { //该列是否展示
+                            tda.hide();
+                        }
+                        if (label == 'planStartAt') {
+                            tda.css('cursor', 'pointer')
+                            tda.click(function() { //对planStartAt添加点击函数
+                                var me = $(this);
+                                var psaTitle = me.find('div').attr('data-original-title');
+                                var dateDivs = $('#' + target + ' .table thead #date');
+                                var dateBtn = dateDivs.find('div[data-original-title=\'' + psaTitle + '\']').prev();
+                                dateBtn.click();
+                            })
+                        }
+                        btr.append(tda);
+                        break;
+                    }
+                }
+            }
+            //写入图信息
+
+            var ps = data[i]['planStartAt']; //计划开始时间
+            var pe = data[i]['planEndAt']; //计划结束时间
+            var dpss = lyhGanttuDateDiff(start, ps) - 1; //计划开始时间和总开始时间的时间差
+            var dpse = lyhGanttuDateDiff(ps, pe) + 1; //计划开始时间和计划结束时间的时间差
+            var dse = lyhGanttuDateDiff(start, end); //总开始和总结束时间差
+
+            var as = data[i]['startAt']; //实际开始时间
+            var ae = data[i]['endAt']; //实际结束时间
+
+            var dass = lyhGanttuDateDiff(start, as) - 1; //实际开始时间和总开始时间的时间差
+            var dase = lyhGanttuDateDiff(as, ae) + 1; //实际开始时间和实际结束时间的时间差
+
+            var tdu = $('<td>').css('padding', '0px').css('max-height', '38px');
+            var d = $('<div>').css({ //计划的div
+                'display' : 'inline-block',
+                'width' : '55px',
+                'height' : '26px',
+                'margin-bottom' : '-5px',
+                'margin-top' : '3px',
+                'padding' : '-1px',
+                'z-index' : 200,
+            }).addClass('Gout').append($('<div>').css({ //背景色的div,用于标注周末
+                'width' : '55px',
+                'height' : '30px',
+                'position' : 'absolute',
+                'margin-top' : '-2px',
+                'opacity' : 0.07,
+            }).addClass('weekend')).append($('<div>').css({ //实际的div
+                'width' : '55px',
+                'height' : '14px',
+                'position' : 'absolute',
+                'margin-top' : '7px',
+                'z-index' : 200,
+            }).addClass('Gin'));
+
+            var weekDay = new Date(start).getDay(); //获取初始日期是星期几 - - 0-6为星期日 -- 星期六
+
+            //甘特图绘图填色
+            for (var k = 0; k < dse; k++) { //在总开始和总结束之间做日期循环
+                var dc = d.clone();
+                if ((k + weekDay) % 7 == 5 || (k + weekDay) % 7 == 6) { //周末标识填充
+                    dc.find('.weekend').css({
+                        'background-color' : 'blue',
+                        'border-left' : '1px inset #ddd',
+                    })
+                }
+                if (k > dpss - 1 && k < dpss + dpse) { //计划内容填充
+                    dc.css({
+                        'background-color' : pBackground,
+                        'border-top' : '1px inset ' + pBorder,
+                        'border-bottom' : '1px inset ' + pBorder,
+                    }).attr('title', '计划进度与实际进度');
+                    if (k == dpss) { //左边界
+                        dc.css('border-left', '1px inset ' + pBorder);
+                        dc.find('.Gin').html('<div style="position:absolute;top:-3px;padding-left:10px">' + data[i]['persent'] + '</div>'); //完工百分比
+                        dc.attr('sId', data[i]['id']); //标记为开始,查询sid,获取当前的计划的id
+                    }
+                    if (k == dpss + dpse - 1) { //右边界
+                        dc.css('border-right', '1px inset ' + pBorder);
+                        dc.attr('eId', data[i]['id']); //标记为结束,查询eid,获取当前的计划的id
+                    }
+                }
+                if (k > dass - 1 && k < dass + dase) { //实际内容填充
+                    dc.find('.Gin').css({
+                        'background-color' : background,
+                        'border-top' : '1px inset ' + border,
+                        'border-bottom' : '1px inset ' + border,
+                    }).attr('title', '实际进度与实际进度');
+                    if (k == dass) { //左边界
+                        dc.find('.Gin').css('border-left', '1px inset ' + border);
+                    }
+                    if (k == dass + dase - 1) { //右边界
+                        dc.find('.Gin').css('border-right', '1px inset ' + border);
+                    }
+                    if (dc.css('border-top-width') != '1px') { //是否是只有实际进度,进行margin-top位置调整
+                        dc.find('.Gin').css('margin-top', '8px');
+                    }
+                }
+                tdu.append(dc)
+            }
+            btr.append(tdu)
+            tbody.append(btr);
+        }
+
+        //写入table顶部工具栏,包括隐藏展示列功能
+        var optr = $('<tr>');
+        var hideResetBtn = $('<button>').addClass('btn btn-primary btn-sm').attr('title', '展示所有隐藏项').html('<span class="glyphicon glyphicon-transfer"></span>')
+        hideResetBtn.click(function() { //全部展示或隐藏的按钮点击函数
+            if (lyhGanttuConfig.labels.planEndAt.show == false) {
+                for (var key in lyhGanttuConfig.labels) {
+                    if (key != 'projectName' && key != 'planStartAt' && key != 'operate') {
+                        lyhGanttuConfig.labels[key].show = true;
+                    }
+                }
+            } else {
+                for (var key in lyhGanttuConfig.labels) {
+                    if (key != 'projectName' && key != 'planStartAt' && key != 'operate') {
+                        lyhGanttuConfig.labels[key].show = false;
+                    }
+                }
+            }
+            lyhGanttuInit(target); //重新绘图
+        })
+        var optdFirst = $('<td>').css('padding', '5px').append(hideResetBtn);
+        optr.append(optdFirst); //写入重置隐藏项按钮
+        for (var key in labels) {
+            if (key != 'projectName' && key != 'planStartAt' && key != 'operate') {
+                var checkSpan = $('<span>').addClass('glyphicon glyphicon-check'); //已选择span
+                var uncheckSpan = $('<span>').addClass('glyphicon glyphicon-unchecked'); //未选择span
+                if (labels[key].show == true) { //该项目要显示,隐藏未选
+                    uncheckSpan.hide();
+                } else {
+                    checkSpan.hide();
+                }
+                var optBtn = $('<button>').addClass('btn btn-primary btn-sm').html('').append(checkSpan).append(uncheckSpan).append(labels[key].name)
+                    .attr('title', '隐藏/展示-' + labels[key].name + '列').attr('id', key);
+                optBtn.click(function() { //表格列工具点击函数
+                    var me = $(this);
+                    var hideColumId = me.attr('id');
+                    if (lyhGanttuConfig.labels[hideColumId].show == true) { //隐藏
+                        lyhGanttuConfig.labels[hideColumId].show = false;
+                    } else {
+                        lyhGanttuConfig.labels[hideColumId].show = true; //展示
+                    }
+                    lyhGanttuInit(target); //重新绘图
+                })
+                var optd = $('<td>').css('padding', '5px 10px').append(optBtn);
+                optr.append(optd);
+            }
+        }
+
+        //当前进度按钮
+        var optBtnToday = $('<button>').addClass('btn btn-danger btn-sm').html('<span class="glyphicon glyphicon-pushpin"></span>今天进度').attr('id', key);
+        optBtnToday.click(function() { //跳转到今天的点击函数
+            var todayBtn = $('#' + target + ' .table thead tr #date').find('.todayDiv');
+            todayBtn.prev().prev().click();
+        })
+        optr.append($('<td>').css('padding', '5px 10px').append(optBtnToday));
+
+        var opt = $('<caption>').append(optr);
+
+        //组装table
+        var thead = $('<thead>').append(htr).css('background-color', '#cccccc');
+        var table = $('<table>').append(opt).append(thead).append(tbody).addClass('table table-bordered table-hover');
+        return table;
+    }
+
+    /**
+     * 根据甘特图生成canvas线条连接linked的函数
+     */
+    function drawLink(target) {
+        var temp = $('#' + target);
+        var dw = parseInt(temp.find('.table #date').css('width').split('px')[0]);
+        var offset = temp.find('.table #date').position().left;
+        var dh = parseInt(temp.find('.table').css('height').split('px')[0]) - 80;
+        var data = lyhGanttuData.data;
+        var canvas = $('<canvas>').css({
+            'position' : 'absolute',
+            'top' : '0px',
+            'left' : '0px',
+            'z-index' : 10,
+            'margin-top' : '95px', //高偏移量
+            'margin-left' : offset + 'px',
+        }).attr('width', dw + 'px').attr('height', dh + 'px');
+
+        //删除target下的所有的canvas
+        temp.find('canvas').remove()
+
+        for (var i = 0; i < data.length; i++) {
+            var before = data[i]['before'];
+            var id = data[i]['id'];
+            if (before.length > 0) {
+                for (var k = 0; k < before.length; k++) {
+
+                    var eDiv = $('#' + target).find('div[sId=' + id + ']')
+                    var sDiv = $('#' + target).find('div[eId=' + before[k] + ']')
+                    if (eDiv.is(':hidden')) { //若已经被隐藏,则不绘制线条
+                        break;
+                    }
+                    var sy = sDiv.position().top - 88; //设置高度偏移量
+                    var sx = sDiv.position().left + 55 - offset; //设置宽度偏移量
+                    var ey = eDiv.position().top - 88;
+                    var ex = eDiv.position().left - offset;
+                    var c = canvas.clone();
+                    $('#' + target).append(c); //加载画布
+                    var ctx = c[0].getContext("2d"); //创建画布
+                    //绘制连接线条
+                    ctx.beginPath();
+                    ctx.strokeStyle = lyhGanttuConfig.lineColor; //绿色线条
+                    ctx.moveTo(sx, sy); //起点
+                    ctx.lineTo(sx + 15, sy); //右移15
+                    ctx.lineTo(sx + 15, sy + 26); //下移32
+                    ctx.lineTo(sx - 15, sy + 26); //左移30
+                    ctx.lineTo(sx - 15, ey); //下移到终点行
+                    ctx.lineTo(ex, ey); //到终点
+                    ctx.stroke(); //描边。stroke不会自动closePath()
+
+                    //绘制起点球球
+                    ctx.beginPath();
+                    ctx.fillStyle = lyhGanttuConfig.lineColor;
+                    ctx.arc(sx, sy, 2, 0, 2 * Math.PI, false); //x,y,半径,*,弧长,时针
+                    ctx.fill(); //填充
+
+                    //绘制终点箭头
+                    ctx.beginPath();
+                    ctx.strokeStyle = lyhGanttuConfig.lineColor;
+                    ctx.moveTo(ex - 7, ey - 3);
+                    ctx.lineTo(ex, ey);
+                    ctx.lineTo(ex - 7, ey + 3);
+                    ctx.stroke(); //描边。stroke不会自动closePath()
+                }
+            }
+        }
+    }
+
+    var dateLabelClickFlag = null;
+    /**
+     * 以过滤后的日期制作head中的日期div
+     */
+    function lyhGanttuHeadDivs(target) {
+        var start = lyhGanttuConfig.start;
+        var end = lyhGanttuConfig.end;
+        var diff = lyhGanttuDateDiff(end, start); //获取时间差
+        var arr = [];
+        var temp = null;
+        for (var i = 0; i < diff; i++) {
+            if (null == temp) {
+                var next = lyhGanttuDatePlus(start);
+            } else {
+                var next = lyhGanttuDatePlus(temp);
+            }
+            temp = next;
+            var div = $('<div>').css({
+                'border-left' : '1px solid #ddd',
+                'display' : 'inline-block',
+                'padding' : '9px 9px',
+                'title' : next,
+                'cursor' : 'pointer',
+            }).attr('title', next).html(next.substr(5, 5));
+            div.click(function() { //date题头点击的函数,隐藏之前的所有内容
+                var me = $(this);
+                if (dateLabelClickFlag != me.attr('title')) { //检验第几次点击,第一次点击则隐藏,再次点击则展示之前内容
+                    dateClickHide(target, me); //隐藏内容
+                    dateLabelClickFlag = me.attr('title'); //更新flag
+                } else {
+                    dateClickShow(target); //隐藏内容
+                    dateLabelClickFlag = null; //更新flag
+                }
+
+            })
+            arr.push(div);
+        }
+        return arr; //写回div的jquery的对象的数组
+    }
+
+    /**
+     * 隐藏点击的日期之前的所有甘特图内容的函数
+     */
+    function dateClickHide(target, me) {
+        var count = 0;
+        var temp = me.prev();
+        while (temp.length != 0) { //隐藏题头
+            var prev = temp;
+            temp.hide();
+            temp = temp.prev();
+            count++;
+        }
+        var trs = $('#' + target + ' tbody tr');
+        for (var i = 0; i < trs.length; i++) {
+            var td = $(trs[i]).children("td:last-child");
+            var divs = td.find('.Gout');
+            for (var k = 0; k < count; k++) {
+                $(divs[k]).hide();
+            }
+        }
+        drawLink(target); //重新绘制
+    }
+
+    /**
+     * 展示点击的日期之前的所有甘特图的内容的函数
+     */
+    function dateClickShow(target) {
+        $('#' + target + ' div').show();
+        drawLink(target); //重新绘制
+    }
+
+
+    /**
+    * 初始化日期,最早时间-5,最长时间+5
+    */
+    function lyhGanttuConfigModifyByDate() {
+        for (var i = 0; i < lyhGanttuData.data.length; i++) {
+            if (lyhGanttuConfig.start == '1900/01/01') {
+                lyhGanttuConfig.start = lyhGanttuData.data[i].planStartAt;
+            }
+            if (lyhGanttuConfig.end == '1900/01/10') {
+                lyhGanttuConfig.end = lyhGanttuData.data[i].planEndAt;
+            }
+            if (str2Date(lyhGanttuConfig.start, '/').getTime() > str2Date(lyhGanttuData.data[i].planStartAt, '/').getTime()) {
+                lyhGanttuConfig.start = lyhGanttuData.data[i].planStartAt;
+            }
+            if (str2Date(lyhGanttuConfig.start, '/').getTime() > str2Date(lyhGanttuData.data[i].startAt, '/').getTime()) {
+                lyhGanttuConfig.start = lyhGanttuData.data[i].startAt;
+            }
+            if (str2Date(lyhGanttuConfig.end, '/').getTime() < str2Date(lyhGanttuData.data[i].planEndAt, '/').getTime()) {
+                lyhGanttuConfig.end = lyhGanttuData.data[i].planEndAt;
+            }
+            if (str2Date(lyhGanttuConfig.end, '/').getTime() < str2Date(lyhGanttuData.data[i].endAt, '/').getTime()) {
+                lyhGanttuConfig.end = lyhGanttuData.data[i].endAt;
+            }
+        }
+        lyhGanttuConfig.start = lyhGanttuDate(new Date(str2Date(lyhGanttuConfig.start, '/').getTime() - (3 * 24 * 60 * 60 * 1000)))
+        lyhGanttuConfig.end = lyhGanttuDate(new Date(str2Date(lyhGanttuConfig.end, '/').getTime() + (8 * 24 * 60 * 60 * 1000)))
+    }
+
+    /**
+     * json date转换日期工具
+     */
+    function lyhGanttuDateStr(dateStr) {
+        var date = str2Date(dateStr, '-');
+        var year = date.getFullYear().toString();
+        var month = (date.getMonth() + 1) <= 9 ? "0"
+        + (date.getMonth() + 1) : (date.getMonth() + 1);
+        var day = date.getDate() <= 9 ? "0" + date.getDate() : date
+            .getDate();
+        return year + "/" + month + "/" + day;
+    }
+    /**
+     * json date转换日期工具    date 对象转化为固定格式/日期的函数
+     */
+    function lyhGanttuDate(date) {
+        var year = date.getFullYear().toString();
+        var month = (date.getMonth() + 1) <= 9 ? "0"
+        + (date.getMonth() + 1) : (date.getMonth() + 1);
+        var day = date.getDate() <= 9 ? "0" + date.getDate() : date
+            .getDate();
+        return year + "/" + month + "/" + day;
+    }
+
+    /**
+     * 固定格式的字符串转换成date格式函数 
+     */
+    function str2Date(dateStr, separator) {
+        if (!separator) {
+            separator = "/";
+        }
+        var dateArr = dateStr.split(separator);
+        var year = parseInt(dateArr[0]);
+        var month;
+        //处理月份为04这样的情况                         
+        if (dateArr[1].indexOf("0") == 0) {
+            month = parseInt(dateArr[1].substring(1));
+        } else {
+            month = parseInt(dateArr[1]);
+        }
+        var day = parseInt(dateArr[2]);
+        var date = new Date(year, month - 1, day);
+        return date;
+    }
+
+    /**
+     * 计算两个日期之间的天数
+     */
+    function lyhGanttuDateDiff(dateStr1, dateStr2) { //sDate1和sDate2是2006-12-18格式  
+        var dateSpan,
+            tempDate,
+            iDays;
+        dateStr1 = Date.parse(dateStr1);
+        dateStr2 = Date.parse(dateStr2);
+        dateSpan = dateStr2 - dateStr1;
+        dateSpan = Math.abs(dateSpan);
+        iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
+        return iDays
+    }
+
+    /**
+     * 当前日期时间以原格式+1的函数
+     */
+    function lyhGanttuDatePlus(dateStr, days) {
+        var date = str2Date(dateStr);
+        if (days == undefined || days == '') {
+            days = 1;
+        }
+        date.setDate(date.getDate() + days); //日期+1
+        var year = date.getFullYear().toString();
+        var month = (date.getMonth() + 1) <= 9 ? "0"
+        + (date.getMonth() + 1) : (date.getMonth() + 1);
+        var day = date.getDate() <= 9 ? "0" + date.getDate() : date
+            .getDate();
+        return year + "/" + month + "/" + day;
+    }
+</script>
+</html>

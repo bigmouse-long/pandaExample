@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //      function lyhGanttuDateDiff(dateStr1, dateStr2) { //sDate1和sDate2是2006-12-18格式  
+    //      console.log(dateStr1, dateStr2)
+    //     var dateSpan,
+    //         iDays;
+    //     dateStr1 = Date.parse(dateStr1);
+    //     dateStr2 = Date.parse(dateStr2);
+    //     dateSpan = dateStr2 - dateStr1;
+    //     dateSpan = Math.abs(dateSpan);
+    //     iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
+    //     return iDays
+    // }
+    function lyhGanttuDateDiff(dateStr1, dateStr2) { //sDate1和sDate2是2006-12-18格式  
+         console.log(dateStr1, dateStr2)
+        var dateSpan,
+            iDays;
+        dateStr1 = Date.parse(dateStr1);
+        dateStr2 = Date.parse(dateStr2)
+        dateSpan = dateStr2 - dateStr1;
+        dateSpan = Math.abs(dateSpan);
+        iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
+        return iDays
+    }
+    var a="2020-8-20"
+    var b="2020-8-28"
+    console.log(lyhGanttuDateDiff('a','b'))
+//     var today=new Date()
+//     console.log(today)
+// console.log(today.getFullYear())
+// console.log(today.getMonth()+1)
+// console.log(today.getDate())
+    </script>
+</body>
+</html>
